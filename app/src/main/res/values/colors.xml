@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#494E6B</color>
+    <color name="colorPrimaryDark">#192231</color>
+    
+    <color name="colorActionButtons">#3B4159</color>
+    <color name="colorSubText">#B3B3B3</color>
+
+    <color name="colorSocialCard">#393F56</color>
+
+    <color name="colorActivityEntries">#98878F</color>
+    <color name="colorActivityPayments">#985E6D</color>
+
+    <color name="colorEntryMoney">#8CC63F</color>
+    <color name="colorEgressMoney">#FF0000</color>
 </resources>
