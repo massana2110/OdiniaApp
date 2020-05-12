@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single" android:id="@+id/operations">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_inicio"
+            android:title="@string/menu_item_home"
+            />
+        <item
+            android:id="@+id/nav_entries"
+            android:icon="@drawable/ic_ingresos"
+            android:title="@string/menu_item_entries" />
+        <item
+            android:id="@+id/nav_egress"
+            android:icon="@drawable/ic_gastos"
+            android:title="@string/menu_item_egress" />
+        <item
+            android:id="@+id/nav_payments"
+            android:icon="@drawable/ic_pagos_realizados"
+            android:title="@string/menu_item_payments" />
+        <item
+            android:id="@+id/nav_movements"
+            android:icon="@drawable/ic_actividad"
+            android:title="@string/menu_item_movements" />
+    </group>
+    <group android:id="@+id/settings">
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_ayuda"
+            android:title="@string/menu_item_help" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_configuracion"
+            android:title="@string/menu_item_settings" />
+    </group>
+</menu>

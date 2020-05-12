@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.womannotfound.odinia.views.ui.fragments.home.HomeFragment"
+        android:label="@string/menu_item_home"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/nav_entries"
+        android:name="com.womannotfound.odinia.views.ui.fragments.operations.EntryMoneyFragment"
+        android:label="@string/menu_item_entries"
+        tools:layout="@layout/fragment_entry_money" />
+    <fragment
+        android:id="@+id/nav_egress"
+        android:name="com.womannotfound.odinia.views.ui.fragments.operations.EgressMoneyFragment"
+        android:label="@string/menu_item_egress"
+        tools:layout="@layout/fragment_egress_money" />
+    <fragment
+        android:id="@+id/nav_payments"
+        android:name="com.womannotfound.odinia.views.ui.fragments.operations.PaymentsFragment"
+        android:label="@string/menu_item_payments"
+        tools:layout="@layout/fragment_payments" />
+    <fragment
+        android:id="@+id/nav_movements"
+        android:name="com.womannotfound.odinia.views.ui.fragments.dashboard.AccountDashboardFragment"
+        android:label="@string/menu_item_movements"
+        tools:layout="@layout/fragment_account_dashboard" />
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.womannotfound.odinia.views.ui.fragments.controls.HelpFragment"
+        android:label="@string/menu_item_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsFragment"
+        android:label="@string/menu_item_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

@@ -13,4 +13,6 @@
 
     <color name="colorEntryMoney">#8CC63F</color>
     <color name="colorEgressMoney">#FF0000</color>
+
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

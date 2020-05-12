@@ -1,10 +1,11 @@
-package com.womannotfound.odinia
+package com.womannotfound.odinia.views.ui.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.womannotfound.odinia.R
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -13,11 +14,14 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        val animation = AnimationUtils.loadAnimation(this, R.anim.animacion)
+        val animation = AnimationUtils.loadAnimation(this,
+            R.anim.animacion
+        )
         iv_logoOdinia.startAnimation(animation)
 
         //Para pasar a main activity
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this,
+            MainActivity::class.java)
 
         animation.setAnimationListener(object: Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {
