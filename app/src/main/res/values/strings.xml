@@ -21,5 +21,26 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_gallery">Gallery</string>
+    <string name="category_text">Categoría</string>
+    <string name="description_text">Nota</string>
+    <string name="add_note_placeholder">Añadir nota</string>
+    <string name="date_text">Fecha</string>
+    <string name="account_text">Cuenta</string>
+
+    <!-- ONLY FOR DESIGN -->
+    <string-array name="accounts">
+        <item>Seleccione</item>
+        <item>Efectivo</item>
+        <item>Tarjeta BAC</item>
+        <item>Tarjeta Banco Agricola</item>
+    </string-array>
+
+    <string-array name="categories_pays">
+        <item>Comida / Bebida</item>
+        <item>Compras</item>
+        <item>Transporte</item>
+        <item>Vivienda</item>
+        <item>Entretenimiento</item>
+    </string-array>
 
 </resources>
