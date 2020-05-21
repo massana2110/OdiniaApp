@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/imageSlideIcon"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:layout_weight="1"
+        android:minWidth="150dp"
+        android:minHeight="300dp"
+        app:srcCompat="@drawable/ic_logo_vertical" />
+
+    <TextView
+        android:id="@+id/titleSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="18sp"
+        android:textColor="@color/colorSubText"
+        android:fontFamily="@font/quicksand_bold"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textDescriptionSlider"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Description text"
+        android:fontFamily="@font/quicksand"
+        android:textColor="@color/colorSubText"
+        android:textSize="15sp"/>
+
+</LinearLayout>
