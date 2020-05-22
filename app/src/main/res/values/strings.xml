@@ -26,6 +26,9 @@
     <string name="add_note_placeholder">Añadir nota</string>
     <string name="date_text">Fecha</string>
     <string name="account_text">Cuenta</string>
+    <string name="minus_text">-</string>
+    <string name="usd_text">usd</string>
+    <string name="next_slide_text">Siguiente</string>
 
     <!-- ONLY FOR DESIGN -->
     <string-array name="accounts">
