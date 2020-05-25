@@ -56,9 +56,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        //Debug
-        val text = parent?.getItemAtPosition(position).toString()
-        Toast.makeText(parent?.context, text, Toast.LENGTH_SHORT).show()
+
     }
 
 

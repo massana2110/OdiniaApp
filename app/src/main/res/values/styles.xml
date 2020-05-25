@@ -18,5 +18,16 @@
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:fontFamily">@font/gobold_extra</item>
+        <item name="titleTextColor">@color/colorSubText</item>
+    </style>
+    
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontFamily">@font/quicksand_bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="NavigationText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
     </style>
 </resources>
