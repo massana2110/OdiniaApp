@@ -18,7 +18,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"/>
+
 
     <TextView
         android:id="@+id/textView12"
@@ -27,6 +30,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="@dimen/fab_margin"
+        android:fontFamily="@font/quicksand_bold"
         android:text="Selecciona una de tus compras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,6 +64,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="@dimen/fab_margin"
+        android:fontFamily="@font/quicksand_bold"
         android:text="Selecciona el color de tu tarjeta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -73,6 +78,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
+        android:fontFamily="@font/quicksand_bold"
         android:text="Vista previa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +91,11 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:text="Button"
+        android:background="@drawable/buttons_style"
+        android:fontFamily="@font/quicksand_bold"
+        android:textColor="@color/colorWhite"
+        android:text="Compartir"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
