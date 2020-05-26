@@ -30,6 +30,7 @@
     <string name="usd_text">usd</string>
     <string name="next_slide_text">Siguiente</string>
 
+
     <!-- ONLY FOR DESIGN -->
     <string-array name="accounts">
         <item>Seleccione</item>
@@ -44,6 +45,39 @@
         <item>Transporte</item>
         <item>Vivienda</item>
         <item>Entretenimiento</item>
+    </string-array>
+
+    <string name="no_account_message">No tienes ninguna cuenta asociada</string>
+    <string name="add_account_message">Agregar una cuenta</string>
+    <string name="image_btn_content">add_btn</string>
+    <string name="type_account">Tipo de cuenta</string>
+    <string name="txt_balance">Saldo de cuenta</string>
+    <string name="dollar_sign">$</string>
+    <string name="btn_add">Agregar</string>
+    <string name="balance_entry_hint">0.00</string>
+    <string name="name_acc">Nombre de cuenta</string>
+    <string name="hint_name_account">Tarjeta CREDOMATIC</string>
+    <string name="txt_payment_sch">Pago programado</string>
+    <string name="txt_payments_msg">Priorize su futuro flujo de divisas</string>
+    <string name="txt_add_payment_sch">Agrega uno con el boton de +</string>
+    <string name="txt_name_payment">Nombre del pago</string>
+    <string name="txt_category">Categoria</string>
+    <string name="txt_amount">Monto</string>
+    <string name="txt_date">Fecha a programar</string>
+    <string name="txt_payment_hint">Pago de universidad</string>
+    <string name="time_hint_txt">30/04/2020</string>
+
+    <string-array name="types_of_accounts">
+        <item>Efectivo</item>
+        <item>Tarjeta de debito</item>
+        <item>Tarjeta de credito</item>
+    </string-array>
+
+    <string-array name="category_payments">
+        <item>Estudios</item>
+        <item>Telefonia</item>
+        <item>Luz/Agua</item>
+        <item>Deuda</item>
     </string-array>
 
 </resources>

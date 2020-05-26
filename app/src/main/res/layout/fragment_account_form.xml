@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Spinner
+            android:id="@+id/acc_type"
+            android:layout_width="319dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="@dimen/n_margin"
+            app:layout_constraintBottom_toTopOf="@+id/balance_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_add"
+            style="@android:style/Widget.Holo.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_indicators"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/btn_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.949"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/money_sign"
+            android:layout_width="19dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/dollar_sign"
+            android:textSize="@dimen/big_text"
+            app:layout_constraintBottom_toBottomOf="@+id/balance_entry"
+            app:layout_constraintEnd_toStartOf="@+id/balance_entry"
+            app:layout_constraintHorizontal_bias="0.916"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/balance_entry"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/balance_entry"
+            android:layout_width="170dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="124dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/balance_entry_hint"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/balance_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/n_margin"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/txt_balance"
+            app:layout_constraintBottom_toTopOf="@+id/balance_entry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/account_type"
+            android:layout_width="122dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="@dimen/n_margin"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/type_account"
+            app:layout_constraintBottom_toTopOf="@+id/acc_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.103"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_name_acc"
+            android:layout_width="122dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="@dimen/n_margin"
+            android:text="@string/name_acc"
+            app:layout_constraintBottom_toTopOf="@+id/text_entry_name_acc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/text_entry_name_acc"
+            android:layout_width="318dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="@dimen/n_margin"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/hint_name_account"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/account_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
