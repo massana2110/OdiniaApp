@@ -15,7 +15,13 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/gradient"
+            android:layout_height="?attr/actionBarSize"
+            app:tabTextColor="@color/colorSubText"
+            app:tabTextAppearance="@style/TabText"
+            app:elevation="0dp"
+            app:tabIndicatorHeight="3dp"
+            />
 
     </androidx.viewpager.widget.ViewPager>
 
