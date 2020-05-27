@@ -67,6 +67,45 @@
     <string name="txt_payment_hint">Pago de universidad</string>
     <string name="time_hint_txt">30/04/2020</string>
 
+
+
+    <string name="txt_profile_settings">Configuración de perfil</string>
+    <string name="txt_profile_settings_details">Puede cambiar su foto de perfil, nombre, cerrar sesion</string>
+    <string name="txt_accounts_settings">Cuentas</string>
+    <string name="txt_accounts_settings_details">Administre sus cuentas. Modificiar icono o nombre</string>
+    <string name="txt_categories_settings">Categorías</string>
+    <string name="txt_categories_settings_details">Administre sus categorias.\n\Agregue nuevas o modifique el icono o descripcion.</string>
+    <string name="txt_notificationCenter_settings">Centro de notificaciones</string>
+    <string name="txt_notificationCenter_settings_details">Configure las notificaciones que desee.</string>
+    <string name="txt_setPin_settings">Establecer PIN</string>
+    <string name="txt_setPin_settings_details">Mantenga seguros sus registros.</string>
+    <string name="txt_rateUs_settings">Califícanos</string>
+    <string name="txt_rateUs_settings_details">¡Ayudanos a crecer!</string>
+    <string name="txt_version_settings">Versión</string>
+    <string name="txt_version_settings_details">0.3</string>
+    <string name="txt_extraSettings_settings">Otras configuraciones</string>
+
+    <string name="fragment_profile_settings">Perfil</string>
+    <string name="fragment_categories_settings">Categorias</string>
+    <string name="fragment_accounts_settings">Cuentas</string>
+    <string name="fragment_notificationCenter_settings">Centro de notificaciones</string>
+    <string name="fragment_SetPin_settings">Establecer PIN</string>
+    <string name="btn_save">Guardar</string>
+
+    <string name="txt_profileUsername_settings">Nombre de usuario</string>
+    <string name="txt_profileEmail_settings">Correo electronico</string>
+    <string name="txt_Password_settings">Contraseña</string>
+    <string name="hint_profilePassword_settings">Contraseña</string>
+
+    <string name="txt_accountsName_settings">Cuenta a modificar</string>
+    <string name="txt_categoriesAddName_settings">Categoria a añadir</string>
+    <string name="hint_categoriesName_settings">Nombre de categoria</string>
+    <string name="txt_categoriesEditName_settings">Categoria a modificar</string>
+    <string name="txt_categoriesNewName_settings">Nuevo nombre de categoria</string>
+    <string name="txt_notificationCenter_activate_settings">Activar notificaciones</string>
+    <string name="txt_SetPin_add_settings">Añadir PIN</string>
+
+
     <string-array name="types_of_accounts">
         <item>Efectivo</item>
         <item>Tarjeta de debito</item>
