@@ -135,5 +135,23 @@
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsSetPinFragment"
         android:label="@string/fragment_SetPin_settings"
         tools:layout="@layout/fragment_settings_set_pin" />
+    <fragment
+        android:id="@+id/nav_odiniaSocial"
+        android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialFragment"
+        android:label="OdiniaSocialFragment"
+        tools:layout="@layout/fragment_odinia_social">
+        <action
+            android:id="@+id/action_nav_odiniaSocial_to_nav_odiniaSocialPurchases"
+            app:destination="@id/nav_odiniaSocialPurchases" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_odiniaSocialPurchases"
+        android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialPurchasesFragment"
+        android:label="OdiniaSocialPurchasesFragment"
+        tools:layout="@layout/fragment_odinia_social_purchases" >
+        <action
+            android:id="@+id/action_nav_odiniaSocialPurchases_to_nav_odiniaSocial"
+            app:destination="@id/nav_odiniaSocial" />
+    </fragment>
 
 </navigation>

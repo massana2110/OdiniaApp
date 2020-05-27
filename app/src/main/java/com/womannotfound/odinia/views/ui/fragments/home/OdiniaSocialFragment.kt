@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentOdiniaSocialBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -17,8 +20,16 @@ class OdiniaSocialFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_odinia_social, container, false)
+      val binding = DataBindingUtil.inflate<FragmentOdiniaSocialBinding>(inflater,
+          R.layout.fragment_odinia_social,container,false)
+
+        binding.button.setOnClickListener{
+
+            it.findNavController().navigate(R.id.action_nav_odiniaSocial_to_nav_odiniaSocialPurchases)
+
+        }
+
+        return binding.root
     }
 
 }

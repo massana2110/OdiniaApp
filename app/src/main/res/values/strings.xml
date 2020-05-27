@@ -47,6 +47,22 @@
         <item>Entretenimiento</item>
     </string-array>
 
+    <string-array name="purchases">
+        <item>Café</item>
+        <item>Camiseta</item>
+        <item>Hamburguesa</item>
+        <item>Zapatos de Vestir</item>
+        <item>Pastel de cumpleaños</item>
+    </string-array>
+
+    <string-array name="cardview_color">
+        <item>Predeterminado</item>
+        <item>Rojo</item>
+        <item>Verde</item>
+        <item>Naranja</item>
+        <item>Celeste</item>
+    </string-array>
+
     <string name="no_account_message">No tienes ninguna cuenta asociada</string>
     <string name="add_account_message">Agregar una cuenta</string>
     <string name="image_btn_content">add_btn</string>

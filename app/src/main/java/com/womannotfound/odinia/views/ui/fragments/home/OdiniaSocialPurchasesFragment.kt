@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentOdiniaSocialPurchasesBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -17,8 +21,31 @@ class OdiniaSocialPurchasesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_odinia_social_purchases, container, false)
+        val binding = DataBindingUtil.inflate<FragmentOdiniaSocialPurchasesBinding>(inflater,
+        R.layout.fragment_odinia_social_purchases,container,false)
+        binding.shareButton.setOnClickListener{
+            it.findNavController().navigate(R.id.action_nav_odiniaSocialPurchases_to_nav_odiniaSocial)
+        }
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.purchases,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.cardview_color,
+            android.R.layout.simple_spinner_item
+        ).also {adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner2.adapter = adapter
+        }
+
+        return binding.root
     }
 
 }
