@@ -6,7 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentSettingsBinding
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -17,8 +23,40 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        val binding= DataBindingUtil.inflate<FragmentSettingsBinding>(inflater,
+            R.layout.fragment_settings, container, false)
+
+        binding.textView.setOnClickListener{
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsProfileFragment)
+        }
+        binding.textView2.setOnClickListener{
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsProfileFragment)
+        }
+        binding.textView3.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsAccountsFragment)
+        }
+        binding.textView4.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsAccountsFragment)
+        }
+        binding.textView5.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsCategoriesFragment)
+        }
+        binding.textView6.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsCategoriesFragment)
+        }
+        binding.textView7.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsNotificationCenterFragment)
+        }
+        binding.textView8.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsNotificationCenterFragment)
+        }
+        binding.textView9.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsSetPinFragment)
+        }
+        binding.textView10.setOnClickListener {
+            it.findNavController().navigate(R.id.action_nav_settings_to_settingsSetPinFragment)
+        }
+        return binding.root
     }
 
 }
