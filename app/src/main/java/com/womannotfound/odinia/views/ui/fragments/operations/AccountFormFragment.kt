@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentAccountFormBinding
+import com.womannotfound.odinia.views.ui.fragments.home.HomeFragmentDirections
 
 class AccountFormFragment : Fragment() {
 
@@ -21,9 +24,9 @@ class AccountFormFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentAccountFormBinding>(inflater,R.layout.fragment_account_form,container,false)
 
         binding.btnAdd.setOnClickListener{
-            var name = binding.textEntryNameAcc.text.toString()
-            var type = binding.accType.selectedItem.toString()
-            var balance = binding.balanceEntry.text.toString()
+            val name = binding.textEntryNameAcc.text.toString()
+            val type = binding.accType.selectedItem.toString()
+            val balance = binding.balanceEntry.text.toString()
 
             it.findNavController().navigate(AccountFormFragmentDirections.actionNavFormAccountToNavHome(name,type,balance))
         }

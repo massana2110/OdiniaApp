@@ -1,12 +1,16 @@
 package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
@@ -21,10 +25,10 @@ class ProgrammedPaymentFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentProgrammedPaymentBinding>(inflater,R.layout.fragment_programmed_payment,container,false)
 
         binding.btnAdd.setOnClickListener{
-            var name = binding.namePayment.text.toString()
-            var amount = binding.addAmount.text.toString()
-            var category = binding.addCategory.selectedItem.toString()
-            var date = binding.addDate.text.toString()
+            val name = binding.namePayment.text.toString()
+            val amount = binding.addAmount.text.toString()
+            val category = binding.addCategory.selectedItem.toString()
+            val date = binding.addDate.text.toString()
 
             it.findNavController()
                 .navigate(ProgrammedPaymentFragmentDirections.actionProgrammedPaymentFragmentToNavPayments(name,category,amount,date))
@@ -41,7 +45,4 @@ class ProgrammedPaymentFragment : Fragment() {
 
         return binding.root
     }
-
-
-
 }

@@ -5,11 +5,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/layoutPayment">
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/logo_view"
             android:layout_width="83dp"
             android:layout_height="98dp"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -28,23 +29,23 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:fontFamily="@font/quicksand_bold"
             android:text="@string/txt_payment_sch"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintBottom_toTopOf="@+id/txt_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txt_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:fontFamily="@font/quicksand_medium"
             android:text="@string/txt_payments_msg"
-            app:layout_constraintBottom_toTopOf="@+id/textView9"
+            app:layout_constraintBottom_toTopOf="@+id/add_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/add_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/nav_header_height"
@@ -66,6 +67,17 @@
             app:layout_constraintHorizontal_bias="0.97"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_plus_btn" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="4dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add"
+            tools:layout_editor_absoluteX="2dp"
+            tools:listitem="@layout/payments_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

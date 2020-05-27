@@ -10,6 +10,9 @@
         android:name="com.womannotfound.odinia.views.ui.fragments.home.HomeFragment"
         android:label="@string/menu_item_home"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_formAccount"
+            app:destination="@id/nav_formAccount" />
         <argument
             android:name="name"
             app:argType="string"
@@ -22,9 +25,6 @@
             android:name="balance"
             app:argType="string"
             android:defaultValue=" " />
-        <action
-            android:id="@+id/action_nav_home_to_nav_formAccount"
-            app:destination="@id/nav_formAccount" />
     </fragment>
     <fragment
         android:id="@+id/nav_entries"
