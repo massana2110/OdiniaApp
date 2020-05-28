@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
         tools:context=".views.ui.fragments.dashboard.AccountDashboardFragment">
 
@@ -99,6 +99,7 @@
                 android:contentDescription="@string/image_btn_content"
                 app:layout_constraintBaseline_toBaselineOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_btn_grap_container" />
 
@@ -153,7 +154,6 @@
                 app:layout_constraintBottom_toTopOf="@id/textViewHint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
