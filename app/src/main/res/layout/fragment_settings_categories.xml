@@ -48,6 +48,7 @@
         app:layout_constraintStart_toEndOf="@id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView"
+        android:autofillHints="Categoria"
         />
 
     <Button
@@ -84,7 +85,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:popupBackground="@color/colorPrimaryDark"
+        android:popupBackground="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -112,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
-        android:autofillHints=""
+        android:autofillHints="Categoria"
         android:ems="10"
         android:hint="@string/hint_categoriesName_settings"
         android:inputType="text"

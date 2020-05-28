@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".views.ui.fragments.dashboard.DashboardGrapsFragment">
+
+            <ImageView
+                android:id="@+id/image_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@drawable/ic_graps_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <ImageView
+                android:id="@+id/imageViewRightArrow"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:layout_marginBottom="300dp"
+                android:contentDescription="@string/image_btn_content"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_container"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintTop_toTopOf="@id/image_view_container"
+                app:srcCompat="@drawable/ic_small_arrow" />
+
+            <ImageView
+                android:id="@+id/imageViewLeftArrow"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginBottom="300dp"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:contentDescription="@string/image_btn_content"
+                android:rotation="180"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toTopOf="@id/image_view_container"
+
+                app:srcCompat="@drawable/ic_small_arrow" />
+
+            <TextView
+                android:id="@+id/textViewPayments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="150dp"
+                android:layout_marginBottom="250dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/txt_payments_dashboard"
+                android:textColor="@color/colorActivityPayments"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/image_view_container" />
+
+            <TextView
+                android:id="@+id/textViewExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginBottom="250dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/txt_expenses_dashboard"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/image_view_container" />
+
+            <TextView
+                android:id="@+id/textViewNumberPayments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="150dp"
+                android:layout_marginBottom="150dp"
+                android:fontFamily="@font/gobold_extra"
+                android:text="@string/txt_number_zero"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewPayments" />
+
+            <TextView
+                android:id="@+id/textViewNumberExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="150dp"
+                android:fontFamily="@font/gobold_extra"
+                android:text="@string/txt_number_zero"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewExpenses" />
+
+
+            <TextView
+                android:id="@+id/textViewEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="150dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/txt_entry_dashboard"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewBalance"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewNumberPayments" />
+
+            <TextView
+                android:id="@+id/textViewBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="190dp"
+                android:layout_marginBottom="100dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/txt_total_balance_dashboard"
+                android:textColor="@color/colorSubText"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewNumberExpenses" />
+
+            <TextView
+                android:id="@+id/textViewNumberEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="150dp"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/gobold_extra"
+                android:text="@string/txt_number_zero"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="25sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewNumberBalance"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewEntry" />
+
+            <TextView
+                android:id="@+id/textViewNumberBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/gobold_extra"
+                android:text="@string/txt_number_zero"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+
+            <ImageView
+                android:id="@+id/imageViewPaymentArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/image_btn_content"
+                android:rotation="45"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNumberPayments"
+                app:layout_constraintStart_toEndOf="@id/textViewNumberPayments"
+                app:srcCompat="@drawable/ic_egress_arrow" />
+
+            <ImageView
+                android:id="@+id/imageViewExpensesArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/image_btn_content"
+                android:rotation="45"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNumberExpenses"
+                app:layout_constraintStart_toEndOf="@id/textViewNumberExpenses"
+                app:srcCompat="@drawable/ic_egress_arrow" />
+
+            <ImageView
+                android:id="@+id/imageViewEntryArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/image_btn_content"
+                android:rotation="320"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNumberEntry"
+                app:layout_constraintStart_toEndOf="@id/textViewNumberEntry"
+                app:srcCompat="@drawable/ic_entry_arrow" />
+
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="180dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="@dimen/margin_indicators"
+                android:layout_marginBottom="@dimen/margin_indicators"
+                android:background="@drawable/buttons_style"
+                android:text="@string/txt_btn_report"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNumberEntry" />
+
+
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartConsumptionGraph"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_container"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_container"
+                app:layout_constraintStart_toStartOf="@id/image_view_container"
+                app:layout_constraintTop_toTopOf="@id/image_view_container"
+                 />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </FrameLayout>
+</layout>

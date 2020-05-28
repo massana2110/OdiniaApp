@@ -1,15 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.ui.fragments.dashboard.AccountDashboardFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Dashboard Fragment" />
+        android:layout_height="wrap_content"
 
-</FrameLayout>
+        tools:context=".views.ui.fragments.dashboard.AccountDashboardFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewPayments"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="50dp"
+                app:cardBackgroundColor="@color/colorActivityPayments"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewPayments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/txt_payments_dashboard"
+                    android:textColor="@color/colorSubText"
+                    android:textSize="@dimen/small_text_settings" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewEntry"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="@dimen/n_margin"
+                app:cardBackgroundColor="@color/colorActivityEntries"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="16dp"
+                app:layout_constraintEnd_toStartOf="@id/cardViewPayments"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewEntry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/txt_entry_dashboard"
+                    android:textColor="@color/colorSubText"
+                    android:textSize="@dimen/small_text_settings" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewExpenses"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="@dimen/n_margin"
+                android:layout_marginTop="50dp"
+                app:cardBackgroundColor="@color/colorSocialCard"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="16dp"
+                app:layout_constraintStart_toEndOf="@id/cardViewPayments"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewExpenses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/txt_expenses_dashboard"
+                    android:textColor="@color/colorSubText"
+                    android:textSize="@dimen/small_text_settings" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="425dp"
+                android:layout_height="241dp"
+                android:layout_marginTop="424dp"
+                android:contentDescription="@string/image_btn_content"
+                app:layout_constraintBaseline_toBaselineOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_btn_grap_container" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:layout_marginTop="84dp"
+                android:fontFamily="@font/gobold_italic"
+                android:text="@string/txt_montly_graph"
+                android:textColor="@color/colorSubText"
+                android:textSize="35sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageViewArrow"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/image_btn_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.217"
+                app:layout_constraintStart_toEndOf="@id/textView"
+
+                app:layout_constraintTop_toTopOf="@id/textView"
+                app:srcCompat="@drawable/ic_arrowright" />
+
+            <TextView
+                android:id="@+id/textViewHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/hint_empty_dashboard"
+                android:textColor="@color/colorSubText"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/txt_empty_dashboard"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/small_text_settings"
+                app:layout_constraintBottom_toTopOf="@id/textViewHint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</layout>

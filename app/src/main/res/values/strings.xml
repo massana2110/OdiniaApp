@@ -84,7 +84,6 @@
     <string name="time_hint_txt">30/04/2020</string>
 
 
-
     <string name="txt_profile_settings">Configuración de perfil</string>
     <string name="txt_profile_settings_details">Puede cambiar su foto de perfil, nombre, cerrar sesion</string>
     <string name="txt_accounts_settings">Cuentas</string>
@@ -120,6 +119,21 @@
     <string name="txt_categoriesNewName_settings">Nuevo nombre de categoria</string>
     <string name="txt_notificationCenter_activate_settings">Activar notificaciones</string>
     <string name="txt_SetPin_add_settings">Añadir PIN</string>
+    <string name="txt_profile_username_settings">Cambiar foto de perfil</string>
+    <string name="description_image_accounts_settings">Imagen ajuste de cuentas</string>
+    <string name="txt_profile_pic">Foto de perfil</string>
+
+    <string name="txt_payments_dashboard">Pagos</string>
+    <string name="txt_entry_dashboard">Ingresos</string>
+    <string name="txt_expenses_dashboard">Gastos</string>
+    <string name="txt_montly_graph">Gráfica mensual</string>
+    <string name="txt_empty_dashboard">No tienes ningun movimiento</string>
+    <string name="hint_empty_dashboard">¡Añade uno usando las opciones de ingresos o gastos!</string>
+    <string name="fragment_montly_graph">Gráfica mensual</string>
+    <string name="txt_month_graph">Mes</string>
+    <string name="txt_number_zero">$0</string>
+    <string name="txt_total_balance_dashboard">Balance total \nen cuenta</string>
+    <string name="txt_btn_report">Reporte financiero</string>
 
 
     <string-array name="types_of_accounts">

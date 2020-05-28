@@ -68,23 +68,45 @@
         android:id="@+id/nav_movements"
         android:name="com.womannotfound.odinia.views.ui.fragments.dashboard.AccountDashboardFragment"
         android:label="@string/menu_item_movements"
-        tools:layout="@layout/fragment_account_dashboard" />
+        tools:layout="@layout/fragment_account_dashboard" >
+        <action
+            android:id="@+id/action_nav_movements_to_dashboardGrapsFragment"
+            app:destination="@id/nav_dashboardGrapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_help"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.HelpFragment"
         android:label="@string/menu_item_help"
         tools:layout="@layout/fragment_help" />
+
+
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsFragment"
         android:label="@string/menu_item_settings"
         tools:layout="@layout/fragment_settings" >
+
         <action
             android:id="@+id/action_nav_settings_to_settingsProfileFragment"
             app:destination="@id/nav_settingsProfileFragment" />
+
+        <argument
+            android:name="nombre"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="balance"
+            app:argType="string"
+            android:defaultValue=" " />
         <action
             android:id="@+id/action_nav_settings_to_settingsAccountsFragment"
             app:destination="@id/nav_settingsAccountsFragment" />
+
+
         <action
             android:id="@+id/action_nav_settings_to_settingsCategoriesFragment"
             app:destination="@id/nav_settingsCategoriesFragment" />
@@ -94,7 +116,11 @@
         <action
             android:id="@+id/action_nav_settings_to_settingsSetPinFragment"
             app:destination="@id/nav_settingsSetPinFragment" />
+
+
     </fragment>
+
+
     <fragment
         android:id="@+id/nav_programmedPayment"
         android:name="com.womannotfound.odinia.views.ui.fragments.operations.ProgrammedPaymentFragment"
@@ -104,6 +130,8 @@
             android:id="@+id/action_programmedPaymentFragment_to_nav_payments"
             app:destination="@id/nav_payments" />
     </fragment>
+
+
     <fragment
         android:id="@+id/nav_formAccount"
         android:name="com.womannotfound.odinia.views.ui.fragments.operations.AccountFormFragment"
@@ -113,21 +141,38 @@
             android:id="@+id/action_nav_formAccount_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_settingsProfileFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsProfileFragment"
         android:label="@string/fragment_profile_settings"
-        tools:layout="@layout/fragment_settings_profile" />
+        tools:layout="@layout/fragment_settings_profile" >
+        <action
+            android:id="@+id/action_nav_settingsProfileFragment_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/nav_settingsAccountsFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsAccountsFragment"
         android:label="@string/fragment_accounts_settings"
-        tools:layout="@layout/fragment_settings_accounts" />
+        tools:layout="@layout/fragment_settings_accounts" >
+
+        <action
+            android:id="@+id/action_nav_settingsAccountsFragment_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
+
     <fragment
         android:id="@+id/nav_settingsCategoriesFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsCategoriesFragment"
         android:label="@string/fragment_categories_settings"
-        tools:layout="@layout/fragment_settings_categories" />
+        tools:layout="@layout/fragment_settings_categories" >
+        <action
+            android:id="@+id/action_nav_settingsCategoriesFragment_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
     <fragment
         android:id="@+id/nav_settingsNotificationCenterFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsNotificationCenterFragment"
@@ -137,7 +182,11 @@
         android:id="@+id/nav_settingsSetPinFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.controls.SettingsSetPinFragment"
         android:label="@string/fragment_SetPin_settings"
-        tools:layout="@layout/fragment_settings_set_pin" />
+        tools:layout="@layout/fragment_settings_set_pin" >
+        <action
+            android:id="@+id/action_nav_settingsSetPinFragment_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
     <fragment
         android:id="@+id/nav_odiniaSocial"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialFragment"
@@ -156,5 +205,10 @@
         android:id="@+id/accountsFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.AccountsFragment"
         android:label="AccountsFragment" />
+    <fragment
+        android:id="@+id/nav_dashboardGrapsFragment"
+        android:name="com.womannotfound.odinia.views.ui.fragments.dashboard.DashboardGrapsFragment"
+        android:label="@string/fragment_montly_graph"
+        tools:layout="@layout/fragment_dashboard_graps" />
 
 </navigation>

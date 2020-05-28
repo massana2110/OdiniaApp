@@ -36,7 +36,8 @@
         android:textSize="@dimen/small_text_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="password" />
 
     <Button
         android:id="@+id/btn_add"
