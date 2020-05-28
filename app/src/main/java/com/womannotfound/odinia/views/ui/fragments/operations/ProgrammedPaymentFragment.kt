@@ -28,7 +28,12 @@ class ProgrammedPaymentFragment : Fragment() {
             val name = binding.namePayment.text.toString()
             val amount = binding.addAmount.text.toString()
             val category = binding.addCategory.selectedItem.toString()
-            val date = binding.addDate.text.toString()
+            //date
+            val day = binding.addDate.dayOfMonth.toString()
+            val month = binding.addDate.month.toString()
+            val year = binding.addDate.year.toString()
+
+            val date = "$day/$month/$year"
 
             it.findNavController()
                 .navigate(ProgrammedPaymentFragmentDirections.actionProgrammedPaymentFragmentToNavPayments(name,category,amount,date))
