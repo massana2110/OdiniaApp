@@ -210,21 +210,6 @@
                 app:srcCompat="@drawable/ic_entry_arrow" />
 
 
-            <Button
-                android:id="@+id/btn_add"
-                android:layout_width="180dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="@dimen/margin_indicators"
-                android:layout_marginBottom="@dimen/margin_indicators"
-                android:background="@drawable/buttons_style"
-                android:text="@string/txt_btn_report"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/small_text_settings"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNumberEntry" />
-
 
 
             <com.github.mikephil.charting.charts.BarChart
