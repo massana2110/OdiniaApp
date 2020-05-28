@@ -24,7 +24,7 @@ class OdiniaSocialPurchasesFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentOdiniaSocialPurchasesBinding>(inflater,
         R.layout.fragment_odinia_social_purchases,container,false)
         binding.shareButton.setOnClickListener{
-            it.findNavController().navigate(R.id.action_nav_odiniaSocialPurchases_to_nav_odiniaSocial)
+            it.findNavController().navigate(R.id.nav_odiniaSocial)
         }
 
         ArrayAdapter.createFromResource(

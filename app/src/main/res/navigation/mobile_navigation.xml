@@ -25,6 +25,9 @@
             android:name="balance"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_nav_home_to_nav_odiniaSocialPurchases"
+            app:destination="@id/nav_odiniaSocialPurchases" />
     </fragment>
     <fragment
         android:id="@+id/nav_entries"
@@ -139,19 +142,19 @@
         android:id="@+id/nav_odiniaSocial"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialFragment"
         android:label="OdiniaSocialFragment"
-        tools:layout="@layout/fragment_odinia_social">
-        <action
-            android:id="@+id/action_nav_odiniaSocial_to_nav_odiniaSocialPurchases"
-            app:destination="@id/nav_odiniaSocialPurchases" />
-    </fragment>
+        tools:layout="@layout/fragment_odinia_social"/>
     <fragment
         android:id="@+id/nav_odiniaSocialPurchases"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialPurchasesFragment"
         android:label="OdiniaSocialPurchasesFragment"
         tools:layout="@layout/fragment_odinia_social_purchases" >
         <action
-            android:id="@+id/action_nav_odiniaSocialPurchases_to_nav_odiniaSocial"
-            app:destination="@id/nav_odiniaSocial" />
+            android:id="@+id/action_nav_odiniaSocialPurchases_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/accountsFragment"
+        android:name="com.womannotfound.odinia.views.ui.fragments.home.AccountsFragment"
+        android:label="AccountsFragment" />
 
 </navigation>

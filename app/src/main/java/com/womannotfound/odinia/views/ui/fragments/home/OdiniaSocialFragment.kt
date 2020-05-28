@@ -25,7 +25,7 @@ class OdiniaSocialFragment : Fragment() {
 
         binding.button.setOnClickListener{
 
-            it.findNavController().navigate(R.id.action_nav_odiniaSocial_to_nav_odiniaSocialPurchases)
+            it.findNavController().navigate(R.id.nav_odiniaSocialPurchases)
 
         }
 

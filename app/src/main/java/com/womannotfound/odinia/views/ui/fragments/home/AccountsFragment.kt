@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
@@ -19,7 +20,7 @@ class AccountsFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentAccountsBinding>(inflater, R.layout.fragment_accounts,container,false)
 
         binding.btnAddAccount.setOnClickListener{
-            it.findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavFormAccount())
+            Navigation.findNavController(it).navigate(HomeFragmentDirections.actionNavHomeToNavFormAccount())
         }
         return binding.root
     }
