@@ -1,4 +1,4 @@
-package com.womannotfound.odinia.views.ui.classes
+package com.womannotfound.odinia.views.ui.fragments.controls.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,9 @@ class PaymentAdapter (private val PaymentsList:List<PaymentsItems>):RecyclerView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.payments_item,parent,false)
-        return PaymentViewHolder(itemView)
+        return PaymentViewHolder(
+            itemView
+        )
     }
 
     override fun getItemCount() = PaymentsList.size
@@ -29,10 +31,10 @@ class PaymentAdapter (private val PaymentsList:List<PaymentsItems>):RecyclerView
     }
 
     class PaymentViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
-        val imageView: ImageView = itemView.image_view
-        val textView: TextView = itemView.txt_view
-        val textView2: TextView = itemView.text_view2
+        val imageView: ImageView = itemView.image_view_accounts
+        val textView: TextView = itemView.txt_view_accounts
+        val textView2: TextView = itemView.text_view2_accounts
         val textView3: TextView = itemView.text_view3
-        val textView4: TextView = itemView.text_view4
+        val textView4: TextView = itemView.text_view4_accounts
     }
 }
