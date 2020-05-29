@@ -7,34 +7,34 @@
     tools:context=".views.ui.fragments.operations.EgressMoneyFragment">
 
 
-    <EditText
-        android:id="@+id/editText"
+    <TextView
+        android:id="@+id/textDatePicked"
         android:layout_width="120dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:ems="10"
-        android:inputType="date"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/datePicker_text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <Spinner
         android:id="@+id/spinner_accounts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="@dimen/margin_indicators"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintStart_toEndOf="@+id/btn_datePicker"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -42,7 +42,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_datePicker" />
 
     <TextView
         android:id="@+id/textView3"
@@ -101,28 +101,29 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView5"
+    <Button
+        android:id="@+id/btn_datePicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttons_style"
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/date_text"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@color/colorSubText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDatePicked" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/account_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/textDatePicked"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024" />
 
