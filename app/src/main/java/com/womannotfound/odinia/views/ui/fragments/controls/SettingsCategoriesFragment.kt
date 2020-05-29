@@ -31,7 +31,7 @@ class SettingsCategoriesFragment : Fragment() {
 
         binding.btnAdd2.setOnClickListener{
             val categoryToEdit = binding.spinnerAccounts.selectedItem.toString()
-            val newName = binding.editText2.text.toString()
+            val newName = binding.inputNewName.text.toString()
             it.findNavController().navigate(SettingsCategoriesFragmentDirections.actionNavSettingsCategoriesFragmentToNavSettings(categoryToEdit,newName))
         }
 

@@ -26,7 +26,7 @@ class SettingsProfileFragment : Fragment() {
 
         binding.btnAdd.setOnClickListener{
             val username = binding.editText.text.toString()
-            val email = binding.editText2.text.toString()
+            val email = binding.inputEmail.text.toString()
 
             it.findNavController().navigate(SettingsProfileFragmentDirections.actionNavSettingsProfileFragmentToNavSettings(username,email))
         }

@@ -2,13 +2,16 @@ package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.viewmodel.EgressMoneyViewModel
 import com.womannotfound.odinia.views.ui.activities.MainActivity
 import kotlinx.android.synthetic.*
 import java.util.*
@@ -18,6 +21,8 @@ import java.util.*
  */
 class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+    private lateinit var egressMoneyViewModel: EgressMoneyViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,6 +30,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val view: View = inflater.inflate(R.layout.fragment_egress_money, container, false)
         val spinnerAccounts: Spinner = view.findViewById(R.id.spinner_accounts)
         val spinnerCategories: Spinner = view.findViewById(R.id.spinnerCategories)
+
         val btnDatePicker: Button = view.findViewById(R.id.btn_datePicker)
         val textDate: TextView = view.findViewById(R.id.textDatePicked)
 
@@ -32,6 +38,12 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        Log.i("EgressFragment", "Called ViewModelProvider")
+        //ViewModel
+        egressMoneyViewModel = activity?.run {
+            ViewModelProvider(this, defaultViewModelProviderFactory).get(EgressMoneyViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
 
         btnDatePicker.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
@@ -49,7 +61,6 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
             spinnerAccounts.adapter = adapter
         }
 
@@ -64,6 +75,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         spinnerAccounts.onItemSelectedListener = this
         spinnerCategories.onItemSelectedListener = this
+
         return view
     }
 
@@ -74,6 +86,5 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
     }
-
 
 }

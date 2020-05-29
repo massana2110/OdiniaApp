@@ -28,7 +28,7 @@ class SettingsAccountsFragment : Fragment() {
 
             val name = binding.editText.text.toString()
             val type = binding.spinnerAccounts2.selectedItem.toString()
-            val balance = binding.editText2.text.toString()
+            val balance = binding.inputAmountMoney.text.toString()
 
             it.findNavController().navigate(SettingsAccountsFragmentDirections.actionNavSettingsAccountsFragmentToNavSettings(name,type,balance))
 
