@@ -57,10 +57,10 @@ class PaymentsFragment : Fragment() {
                 viewModel.date
             )
             viewModel.list += itemB
-            viewModel.name = " "
-            viewModel.category = " "
-            viewModel.amount = " "
-            viewModel.date = " "
+            viewModel.name = ""
+            viewModel.category = ""
+            viewModel.amount = ""
+            viewModel.date = ""
 
         }else if(viewModel.list.isNotEmpty()){
             binding.layoutPayment.removeView(binding.logoView)
@@ -80,10 +80,10 @@ class PaymentsFragment : Fragment() {
                     viewModel.date
                 )
                 viewModel.list += itemB
-                viewModel.name = " "
-                viewModel.category = " "
-                viewModel.amount = " "
-                viewModel.date = " "
+                viewModel.name = ""
+                viewModel.category = ""
+                viewModel.amount = ""
+                viewModel.date = ""
             }
         }
 
