@@ -33,7 +33,6 @@
 
     <!-- ONLY FOR DESIGN -->
     <string-array name="accounts">
-        <item>Seleccione</item>
         <item>Efectivo</item>
         <item>Tarjeta BAC</item>
         <item>Tarjeta Banco Agricola</item>
@@ -137,6 +136,7 @@
     <string name="add_account">Agregar Cuenta</string>
     <string name="add_programmed_payment">Agregar pago programado</string>
     <string name="txt_balance_accounts">Balance</string>
+    <string name="datePicker_text">Selecciona Fecha</string>
 
 
     <string-array name="types_of_accounts">

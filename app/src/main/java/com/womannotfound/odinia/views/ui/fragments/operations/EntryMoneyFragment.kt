@@ -9,8 +9,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentEntryMoneyBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -21,9 +23,9 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_entry_money, container,false)
-        val spinnerAccounts: Spinner = view.findViewById(R.id.spinnerAccounts)
-        val spinnerCategories: Spinner = view.findViewById(R.id.spinnerCategories)
+
+        val binding = DataBindingUtil.inflate<FragmentEntryMoneyBinding>(inflater,
+            R.layout.fragment_entry_money,container,false)
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -31,7 +33,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerAccounts.adapter = adapter
+            binding.spinnerAccounts.adapter = adapter
         }
 
         ArrayAdapter.createFromResource(
@@ -40,12 +42,13 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategories.adapter = adapter
+            binding.spinnerCategories.adapter = adapter
         }
 
-        spinnerAccounts.onItemSelectedListener = this
-        spinnerCategories.onItemSelectedListener = this
-        return view
+        binding.spinnerAccounts.onItemSelectedListener = this
+        binding.spinnerCategories.onItemSelectedListener = this
+
+        return binding.root
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -53,8 +56,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val text = parent?.getItemAtPosition(position).toString()
-        Toast.makeText(parent?.context,text,Toast.LENGTH_SHORT).show()
+
     }
 
 

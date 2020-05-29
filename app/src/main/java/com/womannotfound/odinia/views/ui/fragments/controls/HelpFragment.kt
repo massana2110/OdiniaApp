@@ -13,8 +13,8 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 
 import com.womannotfound.odinia.R
-import com.womannotfound.odinia.views.ui.fragments.controls.adapters.IntroSlide
-import com.womannotfound.odinia.views.ui.fragments.controls.adapters.IntroSlideAdapter
+import com.womannotfound.odinia.views.ui.fragments.controls.adapters.HelpSlide
+import com.womannotfound.odinia.views.ui.fragments.controls.adapters.HelpSlideAdapter
 import kotlinx.android.synthetic.main.fragment_help.*
 
 /**
@@ -22,19 +22,27 @@ import kotlinx.android.synthetic.main.fragment_help.*
  */
 class HelpFragment : Fragment() {
 
-    private val introSlideAdapter = IntroSlideAdapter(
+    private val introSlideAdapter = HelpSlideAdapter(
         listOf(
-            IntroSlide(
+            HelpSlide(
                 "Bienvenido a Odinia",
-                "Sera un placer ayudarte"
+                "Sera un placer ayudarte",
+                R.drawable.ic_logo_vertical
             ),
-            IntroSlide(
+            HelpSlide(
                 "Cuentas",
-                "Tu dinero se mueve a traves de diferentes cuentas, las cuales pueden ser de 3 tipos: Tarjeta de credito, Efectivo, Tarjeta de debito"
+                "Tu dinero se mueve a traves de diferentes cuentas, las cuales pueden ser de 3 tipos: Tarjeta de credito, Efectivo, Tarjeta de debito.",
+                R.drawable.ic_accounts_slider
             ),
-            IntroSlide(
+            HelpSlide(
                 "Movimientos",
-                "Tu dinero entra y sale de tus cuentas, lo cual provoca movimientos. Los movimientos los categorizamos en: Ingresos, Gastos, Pagos"
+                "Tu dinero entra y sale de tus cuentas, lo cual provoca movimientos. Los movimientos los categorizamos en: Ingresos, Gastos, Pagos.",
+                R.drawable.ic_movements_slider
+            ),
+            HelpSlide(
+                "Actividad",
+                "Visualiza cada movimiento registrado para que lleves el control. Ademas despliega graficos para monitorear el flujo de tu dinero.",
+                R.drawable.ic_activity_slider
             )
         )
     )

@@ -3,20 +3,23 @@ package com.womannotfound.odinia.views.ui.fragments.controls.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.womannotfound.odinia.R
 
-class IntroSlideAdapter(private val introSlide: List<IntroSlide>) :
-    RecyclerView.Adapter<IntroSlideAdapter.IntroSlideViewHolder>() {
+class HelpSlideAdapter(private val helpSlide: List<HelpSlide>) :
+    RecyclerView.Adapter<HelpSlideAdapter.IntroSlideViewHolder>() {
 
     inner class IntroSlideViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val textTitle = view.findViewById<TextView>(R.id.titleSlider)
         private val textDescription = view.findViewById<TextView>(R.id.textDescriptionSlider)
+        private val image = view.findViewById<ImageView>(R.id.imageSlideIcon)
 
-        fun bind(introSlide: IntroSlide) {
-            textTitle.text = introSlide.title
-            textDescription.text = introSlide.description
+        fun bind(helpSlide: HelpSlide) {
+            textTitle.text = helpSlide.title
+            textDescription.text = helpSlide.description
+            image.setImageResource(helpSlide.icon)
         }
     }
 
@@ -31,10 +34,10 @@ class IntroSlideAdapter(private val introSlide: List<IntroSlide>) :
     }
 
     override fun getItemCount(): Int {
-        return introSlide.size
+        return helpSlide.size
     }
 
     override fun onBindViewHolder(holder: IntroSlideViewHolder, position: Int) {
-        holder.bind(introSlide[position])
+        holder.bind(helpSlide[position])
     }
 }
