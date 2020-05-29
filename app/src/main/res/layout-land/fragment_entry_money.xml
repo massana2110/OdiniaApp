@@ -189,6 +189,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
         android:background="@drawable/buttons_style"
+        android:textAllCaps="false"
         android:text="@string/date_text"
         android:textColor="@color/colorSubText"
         app:layout_constraintBottom_toBottomOf="parent"
