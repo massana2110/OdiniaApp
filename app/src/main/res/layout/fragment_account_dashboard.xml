@@ -22,10 +22,12 @@
                 android:id="@+id/cardViewPayments"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="50dp"
+
+
                 app:cardBackgroundColor="@color/colorActivityPayments"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
+                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -47,11 +49,11 @@
                 android:id="@+id/cardViewEntry"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="50dp"
                 android:layout_marginEnd="@dimen/n_margin"
                 app:cardBackgroundColor="@color/colorActivityEntries"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
+                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
                 app:layout_constraintEnd_toStartOf="@id/cardViewPayments"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -72,10 +74,10 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="@dimen/n_margin"
-                android:layout_marginTop="50dp"
                 app:cardBackgroundColor="@color/colorSocialCard"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
+                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
                 app:layout_constraintStart_toEndOf="@id/cardViewPayments"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -91,44 +93,6 @@
                     android:textSize="@dimen/small_text_settings" />
             </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="425dp"
-                android:layout_height="241dp"
-                android:layout_marginTop="424dp"
-                android:contentDescription="@string/image_btn_content"
-                app:layout_constraintBaseline_toBaselineOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_btn_grap_container" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="84dp"
-                android:fontFamily="@font/gobold_italic"
-                android:text="@string/txt_montly_graph"
-                android:textColor="@color/colorSubText"
-                android:textSize="35sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imageView" />
-
-            <ImageView
-                android:id="@+id/imageViewArrow"
-                android:layout_width="25dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="12dp"
-                android:contentDescription="@string/image_btn_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.217"
-                app:layout_constraintStart_toEndOf="@id/textView"
-
-                app:layout_constraintTop_toTopOf="@id/textView"
-                app:srcCompat="@drawable/ic_arrowright" />
 
             <TextView
                 android:id="@+id/textViewHint"
@@ -154,6 +118,39 @@
                 app:layout_constraintBottom_toTopOf="@id/textViewHint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <View
+                android:id="@+id/viewGraphsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/ic_container_blue"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewGraphs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gobold_extra"
+                android:text="@string/txt_montly_graph"
+                android:textColor="@color/colorActivityEntries"
+                android:textSize="@dimen/big_text"
+                app:layout_constraintBottom_toBottomOf="@id/viewGraphsContainer"
+                app:layout_constraintEnd_toEndOf="@id/viewGraphsContainer"
+                app:layout_constraintStart_toStartOf="@id/viewGraphsContainer"
+                app:layout_constraintTop_toTopOf="@id/viewGraphsContainer" />
+
+            <ImageView
+                android:id="@+id/imageViewToGraphArrow"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/image_btn_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewGraphs"
+                app:layout_constraintEnd_toEndOf="@id/viewGraphsContainer"
+                app:layout_constraintStart_toEndOf="@id/textViewGraphs"
+
+
+                app:srcCompat="@drawable/ic_arrowright" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

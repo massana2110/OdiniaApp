@@ -10,4 +10,10 @@
     <dimen name="big_text_settings">20sp</dimen>
     <dimen name="small_text_settings">12sp</dimen>
     <dimen name="n_margin">24dp</dimen>
+
+    <dimen name="small_padding">8dp</dimen>
+
+    <dimen name="normal_text_size">18sp</dimen>
+    <dimen name="normal_text_size2">16sp</dimen>
+
 </resources>

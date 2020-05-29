@@ -25,10 +25,10 @@ class AccountDashboardFragment : Fragment() {
 
 
 
-        binding.textView.setOnClickListener{
+        binding.textViewGraphs.setOnClickListener{
             it.findNavController().navigate(R.id.action_nav_movements_to_dashboardGrapsFragment)
         }
-        binding.imageViewArrow.setOnClickListener{
+        binding.imageViewToGraphArrow.setOnClickListener{
             it.findNavController().navigate(R.id.action_nav_movements_to_dashboardGrapsFragment)
         }
 

@@ -7,28 +7,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.os.bundleOf
+
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentAccountFormBinding
-import com.womannotfound.odinia.views.ui.fragments.home.HomeFragmentDirections
+import com.womannotfound.odinia.viewmodel.AccountsViewModel
+
 
 class AccountFormFragment : Fragment() {
-
+    private lateinit var vm: AccountsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentAccountFormBinding>(inflater,R.layout.fragment_account_form,container,false)
 
-        binding.btnAdd.setOnClickListener{
-            val name = binding.textEntryNameAcc.text.toString()
-            val type = binding.accType.selectedItem.toString()
-            val balance = binding.balanceEntry.text.toString()
+        vm = activity?.run {
+            ViewModelProvider(this, defaultViewModelProviderFactory).get(AccountsViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
 
-            it.findNavController().navigate(AccountFormFragmentDirections.actionNavFormAccountToNavHome(name,type,balance))
+        binding.btnAdd.setOnClickListener{
+            vm.name = binding.textEntryNameAcc.text.toString()
+            vm.type= binding.accType.selectedItem.toString()
+            vm.balance = binding.balanceEntry.text.toString()
+
+            if( (vm.type == "" && vm.balance == "")){
+                Toast.makeText(context,"Proporcione datos validos", Toast.LENGTH_SHORT).show()
+            }else{
+                it.findNavController().navigate(AccountFormFragmentDirections.actionNavFormAccountToNavHome())
+            }
+
         }
 
         ArrayAdapter.createFromResource(
