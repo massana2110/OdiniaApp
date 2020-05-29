@@ -35,11 +35,11 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         btnDatePicker.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                DatePickerDialog.OnDateSetListener { view: DatePicker?, dpYear: Int, dpMonth: Int, dpDay: Int ->
-                    //Set to text View
-                    textDate.text = "${dpDay}/${dpMonth + 1}/${dpYear}"
-                }, year, month, day)
+            requireContext(),
+            DatePickerDialog.OnDateSetListener { view: DatePicker?, dpYear: Int, dpMonth: Int, dpDay: Int ->
+                //Set to text View
+                textDate.text = "${dpDay}/${dpMonth + 1}/${dpYear}"
+            }, year, month, day)
             datePickerDialog.show()
         }
 
