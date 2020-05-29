@@ -1,18 +1,17 @@
 package com.womannotfound.odinia.views.ui.fragments.operations
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.views.ui.activities.MainActivity
 import kotlinx.android.synthetic.*
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -26,6 +25,23 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val view: View = inflater.inflate(R.layout.fragment_egress_money, container, false)
         val spinnerAccounts: Spinner = view.findViewById(R.id.spinner_accounts)
         val spinnerCategories: Spinner = view.findViewById(R.id.spinnerCategories)
+        val btnDatePicker: Button = view.findViewById(R.id.btn_datePicker)
+        val textDate: TextView = view.findViewById(R.id.textDatePicked)
+
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        btnDatePicker.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view: DatePicker?, dpYear: Int, dpMonth: Int, dpDay: Int ->
+                    //Set to text View
+                    textDate.text = "${dpDay}/${dpMonth + 1}/${dpYear}"
+                }, year, month, day)
+            datePickerDialog.show()
+        }
 
         ArrayAdapter.createFromResource(
             requireContext(),
