@@ -13,18 +13,6 @@
         <action
             android:id="@+id/action_nav_home_to_nav_formAccount"
             app:destination="@id/nav_formAccount" />
-        <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="type"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="balance"
-            app:argType="string"
-            android:defaultValue=" " />
         <action
             android:id="@+id/action_nav_home_to_nav_odiniaSocialPurchases"
             app:destination="@id/nav_odiniaSocialPurchases" />
@@ -47,22 +35,6 @@
         <action
             android:id="@+id/action_nav_payments_to_programmedPaymentFragment"
             app:destination="@id/nav_programmedPayment" />
-        <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="category"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="amount"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="date"
-            app:argType="string"
-            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/nav_movements"
@@ -124,7 +96,7 @@
     <fragment
         android:id="@+id/nav_programmedPayment"
         android:name="com.womannotfound.odinia.views.ui.fragments.operations.ProgrammedPaymentFragment"
-        android:label="ProgrammedPaymentFragment"
+        android:label="@string/add_programmed_payment"
         tools:layout="@layout/fragment_programmed_payment">
         <action
             android:id="@+id/action_programmedPaymentFragment_to_nav_payments"
@@ -135,7 +107,7 @@
     <fragment
         android:id="@+id/nav_formAccount"
         android:name="com.womannotfound.odinia.views.ui.fragments.operations.AccountFormFragment"
-        android:label="AccountFormFragment"
+        android:label="@string/add_account"
         tools:layout="@layout/fragment_account_form">
         <action
             android:id="@+id/action_nav_formAccount_to_nav_home"
@@ -202,9 +174,10 @@
             app:destination="@id/nav_home" />
     </fragment>
     <fragment
-        android:id="@+id/accountsFragment"
+        android:id="@+id/nav_accounts"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.AccountsFragment"
-        android:label="AccountsFragment" />
+        android:label="Cuentas"
+        tools:layout="@layout/fragment_accounts"/>
     <fragment
         android:id="@+id/nav_dashboardGrapsFragment"
         android:name="com.womannotfound.odinia.views.ui.fragments.dashboard.DashboardGrapsFragment"

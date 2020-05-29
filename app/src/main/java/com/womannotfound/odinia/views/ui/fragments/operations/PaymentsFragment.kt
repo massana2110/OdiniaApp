@@ -1,23 +1,27 @@
 package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentPaymentsBinding
-import com.womannotfound.odinia.views.ui.classes.PaymentAdapter
-import com.womannotfound.odinia.views.ui.classes.PaymentsItems
+import com.womannotfound.odinia.viewmodel.PaymentsViewModel
+import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentAdapter
+import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentsItems
 import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment() {
-    private val list = ArrayList<PaymentsItems>()
+    private lateinit var viewModel: PaymentsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,31 +32,59 @@ class PaymentsFragment : Fragment() {
             container,
             false
         )
+        viewModel = activity?.run {
+            ViewModelProvider(this, defaultViewModelProviderFactory).get(PaymentsViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
 
         binding.btnAdd.setOnClickListener {
             it.findNavController()
                 .navigate(PaymentsFragmentDirections.actionNavPaymentsToProgrammedPaymentFragment())
         }
 
-        val args = PaymentsFragmentArgs.fromBundle(arguments!!)
-
-        if (args.name != " " && args.category != " " && args.amount != " " && args.date != " " ) {
+        if( viewModel.name != " " && viewModel.amount != " " && viewModel.list.isEmpty()){
             binding.layoutPayment.removeView(binding.logoView)
             binding.layoutPayment.removeView(binding.txtPaymentSch)
             binding.layoutPayment.removeView(binding.txtMsg)
             binding.layoutPayment.removeView(binding.addMsg)
-            //binding.layoutPayment.removeView(binding.btnAdd)
-            val amount = "$${args.amount}"
 
             binding.recyclerView.isVisible = true
-            val item = PaymentsItems(
+            val amount = "$${viewModel.amount}"
+            val itemB = PaymentsItems(
                 R.drawable.ic_ingresos,
-                args.name,
-                args.category,
+                viewModel.name,
+                viewModel.category,
                 amount,
-                args.date
+                viewModel.date
             )
-            list += item
+            viewModel.list += itemB
+            viewModel.name = " "
+            viewModel.category = " "
+            viewModel.amount = " "
+            viewModel.date = " "
+
+        }else if(viewModel.list.isNotEmpty()){
+            binding.layoutPayment.removeView(binding.logoView)
+            binding.layoutPayment.removeView(binding.txtPaymentSch)
+            binding.layoutPayment.removeView(binding.txtMsg)
+            binding.layoutPayment.removeView(binding.addMsg)
+
+            binding.recyclerView.isVisible = true
+
+            if( viewModel.name != "" && viewModel.amount != ""){
+                val amount = "$${viewModel.amount}"
+                val itemB = PaymentsItems(
+                    R.drawable.ic_ingresos,
+                    viewModel.name,
+                    viewModel.category,
+                    amount,
+                    viewModel.date
+                )
+                viewModel.list += itemB
+                viewModel.name = " "
+                viewModel.category = " "
+                viewModel.amount = " "
+                viewModel.date = " "
+            }
         }
 
         return binding.root
@@ -60,7 +92,7 @@ class PaymentsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        recycler_view.adapter = PaymentAdapter(list)
+        recycler_view.adapter = PaymentAdapter(viewModel.list)
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.setHasFixedSize(true)
     }
