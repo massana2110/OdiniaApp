@@ -134,6 +134,9 @@
     <string name="txt_number_zero">$0</string>
     <string name="txt_total_balance_dashboard">Balance total \nen cuenta</string>
     <string name="txt_btn_report">Reporte financiero</string>
+    <string name="add_account">Agregar Cuenta</string>
+    <string name="add_programmed_payment">Agregar pago programado</string>
+    <string name="txt_balance_accounts">Balance</string>
 
 
     <string-array name="types_of_accounts">
