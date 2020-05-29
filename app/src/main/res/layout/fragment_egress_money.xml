@@ -94,12 +94,10 @@
         android:hint="@string/add_note_placeholder"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/btn_datePicker"
@@ -108,7 +106,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/buttons_style"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/quicksand"
         android:text="@string/date_text"
         android:textColor="@color/colorSubText"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,5 +153,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText2"
         app:layout_constraintTop_toTopOf="@+id/editText2" />
+
+    <Button
+        android:id="@+id/btnAddEgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons_style"
+        android:fontFamily="@font/quicksand"
+        android:padding="@dimen/small_padding"
+        android:text="@string/register_text"
+        android:textColor="@color/colorSubText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

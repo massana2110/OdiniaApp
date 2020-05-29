@@ -33,7 +33,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerAccounts.adapter = adapter
+            binding.spinnerAccounts?.adapter = adapter
         }
 
         ArrayAdapter.createFromResource(
@@ -42,11 +42,11 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerCategories.adapter = adapter
+            binding.spinnerCategories?.adapter = adapter
         }
 
-        binding.spinnerAccounts.onItemSelectedListener = this
-        binding.spinnerCategories.onItemSelectedListener = this
+        binding.spinnerAccounts?.onItemSelectedListener = this
+        binding.spinnerCategories?.onItemSelectedListener = this
 
         return binding.root
     }

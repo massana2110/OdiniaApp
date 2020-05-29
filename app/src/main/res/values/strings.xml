@@ -134,6 +134,7 @@
     <string name="txt_total_balance_dashboard">Balance total \nen cuenta</string>
     <string name="txt_btn_report">Reporte financiero</string>
     <string name="datePicker_text">Selecciona Fecha</string>
+    <string name="register_text">Registrar</string>
 
 
     <string-array name="types_of_accounts">
