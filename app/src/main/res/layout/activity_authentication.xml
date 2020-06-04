@@ -4,8 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.ui.activities.AuthenticationActivity"
-    android:background="@drawable/gradient">
+    tools:context=".views.ui.activities.AuthenticationActivity">
 
+    <fragment
+        android:name="com.womannotfound.odinia.views.ui.fragments.authentication.SignInFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_sign_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

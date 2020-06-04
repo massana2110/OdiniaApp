@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Odinia</string>
 
+    <!--Facebook-->
+    <string name="facebook_app_id">1216133538718341</string>
+    <string name="fb_login_protocol_scheme">fb1216133538718341</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_item_home">Inicio</string>
@@ -141,6 +145,8 @@
     <string name="welcome_text">Bienvenido \u0020</string>
     <string name="a_odinia">A Odinia \u0020</string>
     <string name="iniciar_sesion">Iniciar sesion</string>
+    <string name="do_you_have_account">¿Aún no tienes cuenta?</string>
+    <string name="sign_up_text">Registrate</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>

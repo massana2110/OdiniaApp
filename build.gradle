@@ -6,8 +6,7 @@ buildscript {
         supportlibVersion = '1.1.0'
         nav_version = "2.2.2"
         lifecycle_version = "2.2.0"
-
-
+        multidex_version = "2.0.1"
     }
 
     repositories {

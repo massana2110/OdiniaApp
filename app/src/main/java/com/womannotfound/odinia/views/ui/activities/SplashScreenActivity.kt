@@ -21,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         //Para pasar a main activity
         val intent = Intent(this,
-            MainActivity::class.java)
+            AuthenticationActivity::class.java)
 
         animation.setAnimationListener(object: Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {
