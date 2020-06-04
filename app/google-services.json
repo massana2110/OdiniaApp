@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "215084949472",
+    "firebase_url": "https://odiniaapp.firebaseio.com",
+    "project_id": "odiniaapp",
+    "storage_bucket": "odiniaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215084949472:android:e13a5b515f069893db1585",
+        "android_client_info": {
+          "package_name": "com.womannotfound.odinia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215084949472-s8lvfmju7q1g5b1utdvjd8hr62gsdcbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.womannotfound.odinia",
+            "certificate_hash": "f71a7b6242bf81ffed510da51eb7094f1a54c4c4"
+          }
+        },
+        {
+          "client_id": "215084949472-dfk8o07tnttlobun4revtrrifkb11r9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVegKlTf5a6yt6JI8oIKN7OErHmHSWG1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215084949472-dfk8o07tnttlobun4revtrrifkb11r9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

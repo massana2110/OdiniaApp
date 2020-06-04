@@ -138,7 +138,9 @@
     <string name="txt_balance_accounts">Balance</string>
     <string name="datePicker_text">Selecciona Fecha</string>
     <string name="register_text">Registrar</string>
-
+    <string name="welcome_text">Bienvenido \u0020</string>
+    <string name="a_odinia">A Odinia \u0020</string>
+    <string name="iniciar_sesion">Iniciar sesion</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>
