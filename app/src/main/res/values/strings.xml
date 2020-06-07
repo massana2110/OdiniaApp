@@ -147,6 +147,12 @@
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="do_you_have_account">¿Aún no tienes cuenta?</string>
     <string name="sign_up_text">Registrate</string>
+    <string name="share_purchase">Compartir compra</string>
+    <string name="correo_electronico">Correo electronico</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="password_text">Contraseña</string>
+    <string name="signUp_text_button">Registrarme</string>
+    <string name="have_an_account_text">¿Ya tienes cuenta?</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>

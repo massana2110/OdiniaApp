@@ -167,8 +167,8 @@
     <fragment
         android:id="@+id/nav_odiniaSocialPurchases"
         android:name="com.womannotfound.odinia.views.ui.fragments.home.OdiniaSocialPurchasesFragment"
-        android:label="OdiniaSocialPurchasesFragment"
-        tools:layout="@layout/fragment_odinia_social_purchases" >
+        android:label="@string/share_purchase"
+        tools:layout="@layout/fragment_odinia_social_purchases">
         <action
             android:id="@+id/action_nav_odiniaSocialPurchases_to_nav_home"
             app:destination="@id/nav_home" />
