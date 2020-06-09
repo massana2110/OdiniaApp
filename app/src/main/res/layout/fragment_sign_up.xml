@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,14 +37,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/input_name_signUp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
+                    android:drawableStart="@drawable/ic_email_input"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/quicksand"
                     android:hint="@string/full_name"
+                    android:inputType="text"
+                    android:textColor="@color/colorSubText"
+                    android:textColorHint="@color/colorSubText"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/colorSubText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,32 +89,48 @@
                     app:layout_constraintTop_toBottomOf="@+id/sign_up_welcome"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/input_email_signUp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
+                    android:drawableStart="@drawable/ic_email_input_sign_up"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/quicksand"
                     android:hint="@string/correo_electronico"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorSubText"
+                    android:textColorHint="@color/colorSubText"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/colorSubText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/input_name_signUp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText2"
+                <EditText
+                    android:id="@+id/password_input_signUp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
+                    android:drawableStart="@drawable/ic_password_input"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/quicksand"
                     android:hint="@string/password_text"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorSubText"
+                    android:textColorHint="@color/colorSubText"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/colorSubText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/input_email_signUp" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/sign_up_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -117,7 +142,7 @@
                     android:textColor="@color/colorSubText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
+                    app:layout_constraintTop_toBottomOf="@+id/password_input_signUp" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -127,11 +152,12 @@
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/quicksand"
                     android:text="@string/have_an_account_text"
+                    android:textColor="@color/colorSubText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.29"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button2" />
+                    app:layout_constraintTop_toBottomOf="@+id/sign_up_button" />
 
                 <TextView
                     android:id="@+id/sign_in_now"
@@ -139,7 +165,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:text="Inicia sesión"
+                    android:text="@string/sign_in_now"
+                    android:textColor="@color/colorSubText"
                     app:layout_constraintBottom_toBottomOf="@+id/textView29"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

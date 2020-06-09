@@ -153,6 +153,8 @@
     <string name="password_text">Contraseña</string>
     <string name="signUp_text_button">Registrarme</string>
     <string name="have_an_account_text">¿Ya tienes cuenta?</string>
+    <string name="sign_in_now">Inicia sesión</string>
+    <string name="log_out">Cerrar Sesion</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>
