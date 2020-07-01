@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 
 import com.womannotfound.odinia.R
@@ -39,6 +40,7 @@ class SettingsProfileFragment : Fragment() {
         binding.logOutButton.setOnClickListener {
             auth = FirebaseAuth.getInstance()
             auth.signOut()
+            LoginManager.getInstance().logOut()
             val intent = Intent(requireContext(), AuthenticationActivity::class.java)
             startActivity(intent)
             activity?.finish()
