@@ -16,6 +16,9 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentSignInBinding
@@ -29,7 +32,7 @@ class SignInFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
-
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,8 @@ class SignInFragment : Fragment() {
         )
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
         //sign up fragment navigation
         binding.signUpNow.setOnClickListener {
             val signUpFragment: Fragment = SignUpFragment()
@@ -91,7 +96,7 @@ class SignInFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("SignIn", "SignInWithEmail: success")
-                        navigateHome(task.result?.user?.email ?: "")
+                        navigateHome()
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -110,7 +115,42 @@ class SignInFragment : Fragment() {
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful){
                 Log.d("SignIn", "signInWithCredential:success")
-                navigateHome(task.result?.user?.email ?: "")
+
+                val user: FirebaseUser? = auth.currentUser
+
+                if (user != null){
+                    val uid = user.uid
+                    val name = user.displayName.toString()
+                    val email = user.email.toString()
+                    val photoUrl = user.photoUrl.toString()
+                    val provider = "Facebook"
+
+                    val documentReference: DocumentReference =
+                        db.collection("users").document(uid)
+
+                    val fbuser = hashMapOf(
+                        "username" to name,
+                        "email" to email,
+                        "photoUrl" to photoUrl,
+                        "provider" to provider
+                    )
+
+                    documentReference.set(fbuser).addOnSuccessListener {
+                        Log.d(
+                            "SingInFragment",
+                            "DocumentSnapshot successfully written!"
+                        )
+                    }.addOnFailureListener { e ->
+                        Log.w(
+                            "SignInFragment",
+                            "Error writing document",
+                            e
+                        )
+                    }
+                }
+
+
+                navigateHome()
             } else {
                 Toast.makeText(requireContext(), "Authentication with FB failed.",
                     Toast.LENGTH_SHORT).show()
@@ -118,9 +158,8 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun navigateHome(email: String) {
+    private fun navigateHome() {
         val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra("email", email)
         startActivity(intent)
         activity?.finish()
     }

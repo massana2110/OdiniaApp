@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 import com.womannotfound.odinia.R
@@ -38,13 +41,20 @@ class SignUpFragment : Fragment() {
         val userName = binding.inputNameSignUp.text
 
         auth = FirebaseAuth.getInstance()
-        //userName!!.isNotEmpty()
+        database = FirebaseFirestore.getInstance()
+
         binding.signUpButton.setOnClickListener {
+            val username = binding.inputNameSignUp.text.toString()
             val email = binding.inputEmailSignUp.text.toString()
             val password = binding.passwordInputSignUp.text.toString()
 
-            createAccount(email, password)
+            createAccount(username, email, password)
         }
+
+        binding.signInNow.setOnClickListener {
+            goLoginScreen()
+        }
+
         return binding.root
     }
 
@@ -57,8 +67,8 @@ class SignUpFragment : Fragment() {
         dialog.show()
     }
 
-    private fun createAccount(email: String, password: String){
-        if (email.isEmpty() || password.isEmpty()) {
+    private fun createAccount(username: String, email: String, password: String) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(requireContext(), "Campos vacios", Toast.LENGTH_SHORT).show()
             return
         } else {
@@ -67,11 +77,45 @@ class SignUpFragment : Fragment() {
                     if (!task.isSuccessful) {
                         return@addOnCompleteListener
                     }
-                    Log.d("SignUpFragment", "Create user with email: success")
+                    val uid = auth.currentUser?.uid
+                    val documentReference: DocumentReference =
+                        database.collection("users").document(uid!!)
+
+                    val user = hashMapOf(
+                        "username" to username,
+                        "email" to email,
+                        "provider" to "email/password"
+                    )
+
+                    documentReference.set(user)
+                        .addOnSuccessListener {
+                            Log.d(
+                                "SingUpFragment",
+                                "DocumentSnapshot successfully written!"
+                            )
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(
+                                "SignUpFragment",
+                                "Error writing document",
+                                e
+                            )
+                        }
+                    Toast.makeText(requireContext(), "User Succesfully Created", Toast.LENGTH_SHORT).show()
+                    goLoginScreen()
                 }
                 .addOnFailureListener {
                     showAlert(it.message.toString())
                 }
         }
+    }
+
+    private fun goLoginScreen(){
+        val signInFragment: Fragment = SignInFragment()
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragments_container, signInFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 }
