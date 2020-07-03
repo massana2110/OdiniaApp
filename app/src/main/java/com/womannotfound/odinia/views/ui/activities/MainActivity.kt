@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         emailTextView = headerView.findViewById(R.id.display_email_text_user)
         nameTextView = headerView.findViewById(R.id.display_name_text_user)
+        imageUser = headerView.findViewById(R.id.userProfileImage)
 
         //Firebase
         val user = FirebaseAuth.getInstance().currentUser
@@ -50,16 +52,14 @@ class MainActivity : AppCompatActivity() {
             val email = user.email
 
             //Get Username
-            db.collection("users").document(user.uid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null){
-                        val username = document["username"].toString()
-                        nameTextView.text = username
-                    }
-                }
-                .addOnFailureListener {
-                    nameTextView.text = ""
-                }
+            db.collection("users").document(user.uid).addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                nameTextView.text = documentSnapshot?.get("username").toString()
+                val imageUrl = documentSnapshot?.get("photoUrl").toString()
+                Glide.with(applicationContext)
+                    .load(imageUrl)
+                    .error(R.drawable.ic_email_input)
+                    .into(imageUser)
+            }
 
             emailTextView.text = email
         }

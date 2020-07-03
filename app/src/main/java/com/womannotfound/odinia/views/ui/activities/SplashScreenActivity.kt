@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.womannotfound.odinia.R
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
@@ -14,14 +16,16 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+
         val animation = AnimationUtils.loadAnimation(this,
             R.anim.animacion
         )
         iv_logoOdinia.startAnimation(animation)
 
         //Para pasar a main activity
-        val intent = Intent(this,
-            AuthenticationActivity::class.java)
+        val intentMainActivity = Intent(this, MainActivity::class.java)
+        val intentAuthenticationActivity = Intent(this, AuthenticationActivity::class.java)
 
         animation.setAnimationListener(object: Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {
@@ -29,8 +33,14 @@ class SplashScreenActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                startActivity(intent)
-                finish()
+                if (user != null){
+                    startActivity(intentMainActivity)
+                    finish()
+                } else {
+                    startActivity(intentAuthenticationActivity)
+                    finish()
+                }
+
             }
 
             override fun onAnimationStart(animation: Animation?) {

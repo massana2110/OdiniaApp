@@ -148,8 +148,7 @@ class SignInFragment : Fragment() {
                         )
                     }
                 }
-
-
+                
                 navigateHome()
             } else {
                 Toast.makeText(requireContext(), "Authentication with FB failed.",
