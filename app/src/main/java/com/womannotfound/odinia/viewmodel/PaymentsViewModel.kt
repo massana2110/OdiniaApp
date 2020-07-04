@@ -5,8 +5,8 @@ import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentsIte
 
 class PaymentsViewModel : ViewModel(){
     val list = ArrayList<PaymentsItems>()
-    var name: String = " "
-    var category: String = " "
-    var amount: String = " "
-    var date: String = " "
+    var name: String = ""
+    var category: String = ""
+    var amount: String = ""
+    var date: String = ""
 }

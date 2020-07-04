@@ -1,16 +1,13 @@
 package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
@@ -31,23 +28,20 @@ class ProgrammedPaymentFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         binding.btnAdd.setOnClickListener{
-            val name = binding.namePayment.text.toString()
-            val amount = binding.addAmount.text.toString()
-            val category = binding.addCategory.selectedItem.toString()
+            viewModel.name =binding.namePayment.text.toString()
+            viewModel.category =binding.addCategory.selectedItem.toString()
+            viewModel.amount = binding.addAmount.text.toString()
             //date
             val day = binding.addDate.dayOfMonth.toString()
-            val month = binding.addDate.month.toString()
+            val month = binding.addDate.month + 1
             val year = binding.addDate.year.toString()
-
             val date = "$day/$month/$year"
-            if( (name == " " && amount == " ")|| (name == "" && amount == "")){
+
+            viewModel.date =date
+
+            if( (viewModel.name == " " && viewModel.amount == " ")|| (viewModel.name == "" && viewModel.amount == "")){
                 Toast.makeText(context,"Proporcione datos validos",Toast.LENGTH_SHORT).show()
             }else{
-                viewModel.name =binding.namePayment.text.toString()
-                viewModel.category =binding.addCategory.selectedItem.toString()
-                viewModel.amount = binding.addAmount.text.toString()
-                viewModel.date =date
-
                 it.findNavController()
                     .navigate(ProgrammedPaymentFragmentDirections.actionProgrammedPaymentFragmentToNavPayments())
             }

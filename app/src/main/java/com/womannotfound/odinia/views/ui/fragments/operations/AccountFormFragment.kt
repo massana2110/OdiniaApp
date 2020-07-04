@@ -34,7 +34,7 @@ class AccountFormFragment : Fragment() {
             vm.type= binding.accType.selectedItem.toString()
             vm.balance = binding.balanceEntry.text.toString()
 
-            if( (vm.type == "" && vm.balance == "")){
+            if( (vm.type == "" && vm.balance == "") || vm.type == "" || vm.balance == ""){
                 Toast.makeText(context,"Proporcione datos validos", Toast.LENGTH_SHORT).show()
             }else{
                 it.findNavController().navigate(AccountFormFragmentDirections.actionNavFormAccountToNavHome())

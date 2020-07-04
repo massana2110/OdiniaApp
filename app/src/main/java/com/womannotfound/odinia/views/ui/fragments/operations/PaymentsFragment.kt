@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-
+import androidx.recyclerview.widget.RecyclerView
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentPaymentsBinding
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment() {
     private lateinit var viewModel: PaymentsViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +45,7 @@ class PaymentsFragment : Fragment() {
                 .navigate(PaymentsFragmentDirections.actionNavPaymentsToProgrammedPaymentFragment())
         }
 
-        if( viewModel.name != " " && viewModel.amount != " " && viewModel.list.isEmpty()){
+        if( viewModel.name != "" && viewModel.amount != ""){
             binding.layoutPayment.removeView(binding.logoView)
             binding.layoutPayment.removeView(binding.txtPaymentSch)
             binding.layoutPayment.removeView(binding.txtMsg)
@@ -57,43 +61,32 @@ class PaymentsFragment : Fragment() {
                 viewModel.date
             )
             viewModel.list += itemB
-            viewModel.name = ""
-            viewModel.category = ""
-            viewModel.amount = ""
-            viewModel.date = ""
 
-        }else if(viewModel.list.isNotEmpty()){
-            binding.layoutPayment.removeView(binding.logoView)
-            binding.layoutPayment.removeView(binding.txtPaymentSch)
-            binding.layoutPayment.removeView(binding.txtMsg)
-            binding.layoutPayment.removeView(binding.addMsg)
+        }else {
+            if(viewModel.list.isNotEmpty()){
+                binding.layoutPayment.removeView(binding.logoView)
+                binding.layoutPayment.removeView(binding.txtPaymentSch)
+                binding.layoutPayment.removeView(binding.txtMsg)
+                binding.layoutPayment.removeView(binding.addMsg)
 
-            binding.recyclerView.isVisible = true
-
-            if( viewModel.name != "" && viewModel.amount != ""){
-                val amount = "$${viewModel.amount}"
-                val itemB = PaymentsItems(
-                    R.drawable.ic_ingresos,
-                    viewModel.name,
-                    viewModel.category,
-                    amount,
-                    viewModel.date
-                )
-                viewModel.list += itemB
-                viewModel.name = ""
-                viewModel.category = ""
-                viewModel.amount = ""
-                viewModel.date = ""
+                binding.recyclerView.isVisible = true
             }
+        }
+        viewModel.name = ""
+        viewModel.category = ""
+        viewModel.amount = ""
+        viewModel.date = ""
+
+
+        viewManager = LinearLayoutManager(context)
+        viewAdapter = PaymentAdapter(viewModel.list)
+        recyclerView = binding.recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager= viewManager
+            adapter= viewAdapter
         }
 
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        recycler_view.adapter = PaymentAdapter(viewModel.list)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.setHasFixedSize(true)
-    }
 }
