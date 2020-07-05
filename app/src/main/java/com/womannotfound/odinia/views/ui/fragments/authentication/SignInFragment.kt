@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.facebook.*
+import com.facebook.login.LoginBehavior
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
@@ -69,6 +70,7 @@ class SignInFragment : Fragment() {
         //sign in with Facebook
         binding.loginButton.fragment = this
         binding.loginButton.setReadPermissions("email", "public_profile")
+        binding.loginButton.loginBehavior = LoginBehavior.WEB_VIEW_ONLY
         binding.loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult>{
             override fun onSuccess(loginResult: LoginResult) {
                 Log.d("SignInFacebook", "facebook:onSuccess:$loginResult")

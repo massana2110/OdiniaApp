@@ -20,6 +20,7 @@ import com.womannotfound.odinia.databinding.FragmentAccountsBinding
 import com.womannotfound.odinia.viewmodel.AccountsViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.AccountAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.AccountsItems
+import kotlinx.android.synthetic.main.fragment_accounts.*
 
 class AccountsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -59,6 +60,7 @@ class AccountsFragment : Fragment() {
                 balance
             )
             vm.list.add(itemB)
+
             addAccount(userID,vm.name,vm.type,vm.balance)
         }else{
             if(vm.list.isNotEmpty()){
@@ -68,11 +70,6 @@ class AccountsFragment : Fragment() {
             }else{
                 getAccounts(userID)
                 Toast.makeText(context,"hay ${vm.list.size} en la lista",Toast.LENGTH_SHORT).show()
-                if(vm.list.isNotEmpty()){
-                    binding.accountLayout.removeView(binding.txtMessageNoAcc)
-                    binding.accountLayout.removeView(binding.txtMessageAddAcc)
-                    binding.recyclerViewAccounts.isVisible = true
-                }
             }
         }
 
@@ -118,8 +115,11 @@ class AccountsFragment : Fragment() {
                     vm.list.add(item)
 
                     Toast.makeText(context,"hay $name , $balance",Toast.LENGTH_SHORT).show()
+                    recyclerView.adapter?.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener{ exception -> Log.w("getAccount", "Error getting documents", exception) }
     }
+
+
 }
