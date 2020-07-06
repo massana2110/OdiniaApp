@@ -7,7 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.womannotfound.odinia.R
-import kotlinx.android.synthetic.main.payments_item.view.*
+import kotlinx.android.synthetic.main.accounts_item.view.*
+import kotlinx.android.synthetic.main.payments_item.view.image_view_accounts
+import kotlinx.android.synthetic.main.payments_item.view.text_view4_accounts
+import kotlinx.android.synthetic.main.payments_item.view.txt_view_accounts
 
 class AccountAdapter (private val AccountsList:List<AccountsItems>): RecyclerView.Adapter<AccountAdapter.AccountViewHolder>() {
 
@@ -24,8 +27,9 @@ class AccountAdapter (private val AccountsList:List<AccountsItems>): RecyclerVie
         val currentItem = AccountsList[position]
 
         holder.imageView.setImageResource(currentItem.imageResource)
-        holder.textView.text = currentItem.type
+        holder.textView.text = currentItem.name
         holder.textView1.text = currentItem.balance
+        holder.textView2.text = currentItem.type
 
     }
 
@@ -33,6 +37,7 @@ class AccountAdapter (private val AccountsList:List<AccountsItems>): RecyclerVie
         val imageView: ImageView = itemView.image_view_accounts
         val textView1: TextView = itemView.text_view4_accounts
         val textView: TextView = itemView.txt_view_accounts
+        val textView2: TextView = itemView.text_view5_accounts
     }
 
 }

@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -20,7 +18,6 @@ import com.womannotfound.odinia.databinding.FragmentAccountsBinding
 import com.womannotfound.odinia.viewmodel.AccountsViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.AccountAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.AccountsItems
-import kotlinx.android.synthetic.main.fragment_accounts.*
 
 class AccountsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -50,7 +47,6 @@ class AccountsFragment : Fragment() {
         if( vm.type != "" && vm.balance != ""){
             binding.accountLayout.removeView(binding.txtMessageNoAcc)
             binding.accountLayout.removeView(binding.txtMessageAddAcc)
-            binding.recyclerViewAccounts.isVisible = true
 
             val balance = "$${vm.balance}"
             val itemB = AccountsItems(
@@ -62,15 +58,11 @@ class AccountsFragment : Fragment() {
             vm.list.add(itemB)
 
             addAccount(userID,vm.name,vm.type,vm.balance)
-        }else{
-            if(vm.list.isNotEmpty()){
+        }else if(vm.list.isNotEmpty()){
                 binding.accountLayout.removeView(binding.txtMessageNoAcc)
                 binding.accountLayout.removeView(binding.txtMessageAddAcc)
-                binding.recyclerViewAccounts.isVisible = true
-            }else{
-                getAccounts(userID)
-                Toast.makeText(context,"hay ${vm.list.size} en la lista",Toast.LENGTH_SHORT).show()
-            }
+        }else {
+            getAccounts(userID,binding)
         }
 
         vm.name = ""
@@ -84,7 +76,6 @@ class AccountsFragment : Fragment() {
             layoutManager= viewManager
             adapter= viewAdapter
         }
-
         return binding.root
     }
 
@@ -101,7 +92,7 @@ class AccountsFragment : Fragment() {
             .addOnFailureListener{ Log.w("AddAccount","Error writing document")}
     }
 
-    private fun getAccounts (userID: String) {
+    private fun getAccounts(userID: String, binding: FragmentAccountsBinding){
         db.collection("accounts")
             .whereEqualTo("userID",userID)
             .get()
@@ -109,17 +100,17 @@ class AccountsFragment : Fragment() {
                 for (document in documents){
                     val name = document.getString("nameAccount").toString()
                     val type = document.getString("typeAccount").toString()
-                    val balance = document.getString("balanceAccount").toString()
+                    val balance = "$${document.getString("balanceAccount").toString()}"
                     val item = AccountsItems(R.drawable.ic_ingresos,name,type,balance)
 
                     vm.list.add(item)
-
-                    Toast.makeText(context,"hay $name , $balance",Toast.LENGTH_SHORT).show()
                     recyclerView.adapter?.notifyDataSetChanged()
+                }
+                if(!documents.isEmpty){
+                    binding.accountLayout.removeView(binding.txtMessageNoAcc)
+                    binding.accountLayout.removeView(binding.txtMessageAddAcc)
                 }
             }
             .addOnFailureListener{ exception -> Log.w("getAccount", "Error getting documents", exception) }
     }
-
-
 }
