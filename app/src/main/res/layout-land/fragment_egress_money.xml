@@ -131,7 +131,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_datePicker" />
 
             <Spinner
-                android:id="@+id/spinnerCategories"
+                android:id="@+id/spinnerEgressCategories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -150,7 +150,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/description_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCategories" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerEgressCategories" />
 
             <EditText
                 android:id="@+id/noteEgress"
