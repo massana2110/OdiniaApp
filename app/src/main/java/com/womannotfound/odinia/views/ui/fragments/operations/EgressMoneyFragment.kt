@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentEgressMoneyBinding
 import com.womannotfound.odinia.viewmodel.EgressMoneyViewModel
 import com.womannotfound.odinia.views.ui.activities.MainActivity
 import kotlinx.android.synthetic.*
@@ -22,17 +26,26 @@ import java.util.*
 class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var egressMoneyViewModel: EgressMoneyViewModel
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_egress_money, container, false)
-        val spinnerAccounts: Spinner = view.findViewById(R.id.spinner_accounts)
-        val spinnerCategories: Spinner = view.findViewById(R.id.spinnerCategories)
+        val binding = DataBindingUtil.inflate<FragmentEgressMoneyBinding>(
+            inflater,
+            R.layout.fragment_egress_money,
+            container,
+            false
+        )
 
-        val btnDatePicker: Button = view.findViewById(R.id.btn_datePicker)
-        val textDate: TextView = view.findViewById(R.id.textDatePicked)
+        db = FirebaseFirestore.getInstance()
+
+        val spinnerAccounts: Spinner = binding.spinnerAccounts
+        val spinnerCategories = binding.spinnerEgressCategories
+
+        val btnDatePicker: Button = binding.btnDatePicker
+        val textDate: TextView = binding.textDatePicked
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -64,19 +77,12 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinnerAccounts.adapter = adapter
         }
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.categories_pays,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategories.adapter = adapter
-        }
+        populateSpinnerExpensesCategories(spinnerCategories)
 
         spinnerAccounts.onItemSelectedListener = this
         spinnerCategories.onItemSelectedListener = this
 
-        return view
+        return binding.root
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -87,4 +93,25 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
+    private fun populateSpinnerExpensesCategories(spinner: Spinner){
+        val categoriesRef: CollectionReference = db.collection("expenses_categories")
+        val expensesCategories: ArrayList<String> = ArrayList()
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            expensesCategories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.adapter = adapter;
+
+        categoriesRef.get().addOnCompleteListener {task ->
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    val category = document.getString("name")
+                    expensesCategories.add(category!!)
+                }
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
 }
