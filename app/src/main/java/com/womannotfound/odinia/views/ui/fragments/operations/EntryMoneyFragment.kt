@@ -2,6 +2,7 @@ package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +11,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentEntryMoneyBinding
 import com.womannotfound.odinia.viewmodel.EntryMoneyViewModel
 import java.util.*
+import kotlin.collections.HashMap
 
 class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var entryMoneyViewModel: EntryMoneyViewModel
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +33,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
 
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         val binding = DataBindingUtil.inflate<FragmentEntryMoneyBinding>(inflater,
             R.layout.fragment_entry_money,container,false)
@@ -51,6 +57,8 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             datePickerDialog.show()
         }
 
+        val userID = auth.currentUser?.uid.toString()
+
         binding.btnAdd!!.setOnClickListener{
             entryMoneyViewModel.date = binding.selectedDate.text.toString()
             entryMoneyViewModel.account = binding.spinnerAccounts.selectedItem.toString()
@@ -62,6 +70,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Por favor ingrese datos validos", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(context, "Sus ingresos han sido añadidos exitosamente", Toast.LENGTH_SHORT).show()
+                addEntryMoney(userID,entryMoneyViewModel.date,entryMoneyViewModel.account,entryMoneyViewModel.amount,entryMoneyViewModel.category,entryMoneyViewModel.note)
             }
         }
 
@@ -112,6 +121,21 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 adapter.notifyDataSetChanged()
             }
         }
+    }
+
+    private fun addEntryMoney(userId: String, dateEntry: String, accountEntry: String, amountEntry: String, categoryEntry: String, noteEntry: String ){
+        val entry = hashMapOf(
+            "userID" to userId,
+            "dateEntry" to dateEntry,
+            "accountEntry" to accountEntry,
+            "amountEntry" to amountEntry,
+            "categoryEntry" to categoryEntry,
+            "noteEntry" to noteEntry
+        )
+        db.collection("entries_money")
+            .add(entry)
+            .addOnSuccessListener { Log.d("addEntry", "DocumentSnapshot succesfully written!") }
+            .addOnFailureListener { Log.w("addEntry", "Error writing document") }
     }
 
 }
