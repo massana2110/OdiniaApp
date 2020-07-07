@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/add_amount"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="@dimen/fab_margin"
@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText6" />
+            app:layout_constraintTop_toBottomOf="@+id/add_amount" />
 
         <Spinner
             android:id="@+id/spinnerEntryCategories"
@@ -103,7 +103,7 @@
             android:ems="10"
             android:fontFamily="@font/quicksand"
             android:inputType="textPersonName"
-            android:text="Añadir nota"
+            android:hint="Añadir nota"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,10 +121,10 @@
             android:text="+"
             android:textColor="@color/colorEntryMoney"
             android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editText6"
-            app:layout_constraintEnd_toStartOf="@+id/editText6"
+            app:layout_constraintBottom_toBottomOf="@+id/add_amount"
+            app:layout_constraintEnd_toStartOf="@+id/add_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText6" />
+            app:layout_constraintTop_toTopOf="@+id/add_amount" />
 
         <TextView
             android:id="@+id/textView17"
@@ -136,10 +136,10 @@
             android:text="USD"
             android:textColor="@color/colorEntryMoney"
             android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editText6"
+            app:layout_constraintBottom_toBottomOf="@+id/add_amount"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText6"
-            app:layout_constraintTop_toTopOf="@+id/editText6" />
+            app:layout_constraintStart_toEndOf="@+id/add_amount"
+            app:layout_constraintTop_toTopOf="@+id/add_amount" />
 
         <Button
             android:id="@+id/btnDate"
@@ -151,6 +151,7 @@
             android:layout_marginBottom="@dimen/fab_margin"
             android:background="@drawable/buttons_style"
             android:text="@string/date_text"
+            android:textSize="18dp"
             android:textAllCaps="false"
             android:textColor="@color/colorSubText"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -162,16 +163,33 @@
 
         <TextView
             android:id="@+id/selectedDate"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fab_margin"
             android:layout_marginEnd="@dimen/fab_margin"
             android:fontFamily="@font/quicksand_bold"
-            android:text="@string/datePicker_text"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="Registrar"
+            android:textAllCaps="false"
+            android:textColor="@color/colorSubText"
+            android:textSize="20dp"
+            android:background="@drawable/buttons_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,24 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.Spinner
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentEntryMoneyBinding
+import com.womannotfound.odinia.viewmodel.EntryMoneyViewModel
 import java.util.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+    private lateinit var entryMoneyViewModel: EntryMoneyViewModel
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
@@ -40,6 +37,10 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        entryMoneyViewModel = activity?.run {
+            ViewModelProvider(this, defaultViewModelProviderFactory).get(EntryMoneyViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
         binding.btnDate.setOnClickListener{
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
@@ -48,6 +49,20 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     binding.selectedDate.text = "${dpDay}/${dpMonth + 1}/${dpYear}"
                 }, year, month, day)
             datePickerDialog.show()
+        }
+
+        binding.btnAdd!!.setOnClickListener{
+            entryMoneyViewModel.date = binding.selectedDate.text.toString()
+            entryMoneyViewModel.account = binding.spinnerAccounts.selectedItem.toString()
+            entryMoneyViewModel.amount = binding.addAmount!!.text.toString()
+            entryMoneyViewModel.category = binding.spinnerEntryCategories.selectedItem.toString()
+            entryMoneyViewModel.note = binding.editText7!!.text.toString()
+
+            if(entryMoneyViewModel.amount == "" || entryMoneyViewModel.date == ""){
+                Toast.makeText(context, "Por favor ingrese datos validos", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(context, "Sus ingresos han sido añadidos exitosamente", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val spinnerCategories = binding.spinnerEntryCategories
@@ -62,15 +77,6 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         populateSpinnerCategories(spinnerCategories as Spinner)
-
-//        ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.array.categories_pays,
-//            android.R.layout.simple_spinner_item
-//        ).also { adapter ->
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            binding.spinnerCategories?.adapter = adapter
-//        }
 
         binding.spinnerAccounts.onItemSelectedListener = this
         binding.spinnerEntryCategories.onItemSelectedListener = this
