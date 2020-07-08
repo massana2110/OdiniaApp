@@ -9,5 +9,4 @@ class PaymentsViewModel : ViewModel(){
     var amount: String = ""
     var date: String = ""
     val list = ArrayList<PaymentsItems>()
-    var validate : Boolean = false
 }

@@ -8,5 +8,4 @@ class AccountsViewModel: ViewModel(){
     var type : String = ""
     var balance : String = ""
     val list = ArrayList<AccountsItems>()
-    var validate : Boolean = false
 }

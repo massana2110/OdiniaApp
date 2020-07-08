@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -20,7 +18,6 @@ import com.womannotfound.odinia.databinding.FragmentPaymentsBinding
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentsItems
-import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -57,7 +54,6 @@ class PaymentsFragment : Fragment() {
             binding.layoutPayment.removeView(binding.txtMsg)
             binding.layoutPayment.removeView(binding.addMsg)
 
-            binding.recyclerView.isVisible = true
             val amount = "$${viewModel.amount}"
             val itemB = PaymentsItems(
                 R.drawable.ic_ingresos,
@@ -66,7 +62,7 @@ class PaymentsFragment : Fragment() {
                 amount,
                 viewModel.date
             )
-            viewModel.list += itemB
+            viewModel.list.add(itemB)
 
 
             addPayment(userID,viewModel.name,viewModel.category,viewModel.amount,viewModel.date)
@@ -76,8 +72,6 @@ class PaymentsFragment : Fragment() {
                 binding.layoutPayment.removeView(binding.txtPaymentSch)
                 binding.layoutPayment.removeView(binding.txtMsg)
                 binding.layoutPayment.removeView(binding.addMsg)
-
-                binding.recyclerView.isVisible = true
         }else {
             getPayments(userID,binding)
         }
