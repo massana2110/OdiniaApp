@@ -64,7 +64,11 @@ class AccountFormFragment : Fragment() {
                             context,
                             "Error: Nombre de cuenta existente",
                             Toast.LENGTH_SHORT
+
                         ).show()
+                        vm.name = ""
+                        vm.type = ""
+                        vm.balance = ""
 
                     } else if ((vm.type == "" && vm.balance == "") || vm.type == "" || vm.balance == "") {
                         Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
