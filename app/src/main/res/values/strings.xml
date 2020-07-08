@@ -155,6 +155,7 @@
     <string name="have_an_account_text">¿Ya tienes cuenta?</string>
     <string name="sign_in_now">Inicia sesión</string>
     <string name="log_out">Cerrar Sesion</string>
+    <string name="txt_Payment_Account">Cuenta</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>
