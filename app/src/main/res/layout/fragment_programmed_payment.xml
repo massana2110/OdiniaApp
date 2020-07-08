@@ -3,154 +3,194 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/n_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="@string/txt_name_payment"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/name_payment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.11"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.44" />
 
-        <EditText
-            android:id="@+id/name_payment"
-            android:layout_width="195dp"
-            android:layout_height="49dp"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/txt_payment_hint"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.22"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="@string/txt_category"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/add_category"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_payment" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".views.ui.fragments.dashboard.DashboardGrapsFragment">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="@string/txt_amount"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintEnd_toStartOf="@+id/textView12"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_category" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/n_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/txt_name_payment"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/name_payment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.44" />
 
-        <EditText
-            android:id="@+id/add_amount"
-            android:layout_width="68dp"
-            android:layout_height="54dp"
-            android:layout_marginBottom="7dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/balance_entry_hint"
-            android:inputType="numberDecimal"
-            app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_category" />
+            <Spinner
+                android:id="@+id/spinner_accounts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
 
-        <Spinner
-            android:id="@+id/add_category"
-            android:layout_width="295dp"
-            android:layout_height="49dp"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            app:layout_constraintBottom_toTopOf="@+id/add_amount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.45"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintStart_toStartOf="@id/add_amount"
+                app:layout_constraintTop_toBottomOf="@+id/add_amount" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="@string/txt_date"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/add_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_amount"
-            app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/txt_Payment_Account"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="@id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <DatePicker
-            android:id="@+id/add_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.317"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            app:layout_constraintVertical_bias="1.0"
-            tools:targetApi="lollipop" />
+            <EditText
+                android:id="@+id/name_payment"
+                android:layout_width="195dp"
+                android:layout_height="49dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/txt_payment_hint"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
-            android:id="@+id/btn_add"
-            style="@android:style/Widget.Button"
-            android:layout_width="142dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="@dimen/n_margin"
-            android:background="@drawable/buttons_style"
-            android:text="@string/btn_add"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.88"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_date" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/txt_category"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/add_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_payment" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="20dp"
-            android:layout_height="43dp"
-            android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
-            android:text="@string/dollar_sign"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintEnd_toStartOf="@+id/add_amount"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_category" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/txt_amount"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintEnd_toStartOf="@+id/textView12"
+                app:layout_constraintHorizontal_bias="0.411"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_category"
+                 />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/add_amount"
+                android:layout_width="68dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="7dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/balance_entry_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.526"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_category" />
 
+            <Spinner
+                android:id="@+id/add_category"
+                android:layout_width="295dp"
+                android:layout_height="49dp"
+                app:layout_constraintBottom_toTopOf="@+id/add_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/txt_date"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/add_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <DatePicker
+                android:id="@+id/add_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                app:layout_constraintBottom_toTopOf="@+id/btn_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.336"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:layout_constraintVertical_bias="1.0"
+                tools:targetApi="lollipop" />
+
+            <Button
+                android:id="@+id/btn_add"
+                style="@android:style/Widget.Button"
+                android:layout_width="142dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/n_margin"
+                android:background="@drawable/buttons_style"
+                android:text="@string/btn_add"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.88"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_date" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="20dp"
+                android:layout_height="43dp"
+                android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
+                android:text="@string/dollar_sign"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintEnd_toStartOf="@+id/add_amount"
+                app:layout_constraintHorizontal_bias="0.987"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_category"
+                app:layout_constraintVertical_bias="0.435" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
 </layout>
