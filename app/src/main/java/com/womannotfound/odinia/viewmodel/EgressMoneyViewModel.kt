@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 class EgressMoneyViewModel: ViewModel() {
     var date: String = ""
     var account: String = ""
-    var amount: String = ""
+    var amount: Float = 0F
     var category: String = ""
     var note: String = ""
+    val createdAt: String = ""
 
     init {
         Log.i("EgressMoneyViewModel", "EgressMoneyVM Created")
