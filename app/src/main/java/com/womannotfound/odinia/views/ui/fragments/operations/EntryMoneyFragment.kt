@@ -85,7 +85,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.spinnerAccounts.adapter = adapter
         }
 
-        populateSpinnerCategories(spinnerCategories as Spinner)
+        populateSpinnerCategories(spinnerCategories as Spinner,userID)
 
         binding.spinnerAccounts.onItemSelectedListener = this
         binding.spinnerEntryCategories.onItemSelectedListener = this
@@ -101,7 +101,7 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun populateSpinnerCategories(spinner: Spinner){
+    private fun populateSpinnerCategories(spinner: Spinner, userID: String) {
         val categoriesRef: CollectionReference = db.collection("entries_categories")
         val entryCategories: ArrayList<String> = ArrayList()
         val adapter = ArrayAdapter(
@@ -111,14 +111,16 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.adapter = adapter;
-        
-        categoriesRef.get().addOnCompleteListener {task ->
+
+        categoriesRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 for (document in task.result!!) {
-                    val category = document.getString("name")
-                    entryCategories.add(category!!)
+                    if (document.getString("userID").toString() == userID) {
+                        val category = document.getString("name")
+                        entryCategories.add(category!!)
+                    }
+                    adapter.notifyDataSetChanged()
                 }
-                adapter.notifyDataSetChanged()
             }
         }
     }

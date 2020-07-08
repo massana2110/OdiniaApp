@@ -45,14 +45,44 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
+
         val userID = auth.currentUser?.uid.toString()
         val spinnerCategory: Spinner = binding.spinnerCategory
+        val spinnerType: Spinner =binding.spinnerType
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.category_payments,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerCategory.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.typeCategory,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerType.adapter = adapter
+        }
+
+
+
+
+
+
+
 
         binding.btnAdd.setOnClickListener {
             var name = binding.editText.text.toString()
+            val type = binding.spinnerType.selectedItem.toString()
+
             var i = 0;
             db.collection("expenses_categories")
                 .whereEqualTo("userID", userID)
+                .whereEqualTo("type",type)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -73,28 +103,56 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
                         Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
                             .show()
                     } else {
-                        val expenses_categories = hashMapOf(
+
+                        if(type=="Egreso"){val expenses_categories = hashMapOf(
                             "userID" to userID,
-                            "name" to name
+                            "name" to name,
+                            "type" to type
                         )
-                        db.collection("expenses_categories")
-                            .add(expenses_categories)
-                            .addOnSuccessListener {
-                                Log.d(
-                                    "AddCategory",
-                                    "DocumentSnapshot successfully written!"
-                                )
-                            }
-                            .addOnFailureListener { Log.w("AddCategory", "Error writing document") }
-                        it.findNavController()
-                            .navigate(SettingsCategoriesFragmentDirections.actionNavSettingsCategoriesFragmentToNavSettings())
-                        Toast.makeText(
-                            context,
-                            "Categoria añadida exitosamente",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        name = ""
+                            db.collection("expenses_categories")
+                                .add(expenses_categories)
+                                .addOnSuccessListener {
+                                    Log.d(
+                                        "AddCategory",
+                                        "DocumentSnapshot successfully written!"
+                                    )
+                                }
+                                .addOnFailureListener { Log.w("AddCategory", "Error writing document") }
+                            it.findNavController()
+                                .navigate(SettingsCategoriesFragmentDirections.actionNavSettingsCategoriesFragmentToNavSettings())
+                            Toast.makeText(
+                                context,
+                                "Categoria añadida exitosamente",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            name = ""
+                        }else if(type=="Ingreso"){
+                            val expenses_categories = hashMapOf(
+                                "userID" to userID,
+                                "name" to name,
+                                "type" to type
+                            )
+                            db.collection("entries_categories")
+                                .add(expenses_categories)
+                                .addOnSuccessListener {
+                                    Log.d(
+                                        "AddCategory",
+                                        "DocumentSnapshot successfully written!"
+                                    )
+                                }
+                                .addOnFailureListener { Log.w("AddCategory", "Error writing document") }
+                            it.findNavController()
+                                .navigate(SettingsCategoriesFragmentDirections.actionNavSettingsCategoriesFragmentToNavSettings())
+                            Toast.makeText(
+                                context,
+                                "Categoria añadida exitosamente",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            name = ""
+                        }
+
                     }
                 }
 
@@ -103,16 +161,18 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
 
         binding.btnAdd2.setOnClickListener {
             var j = 0;
+            val type = binding.spinnerType.selectedItem.toString()
             val categoryToEdit = binding.spinnerCategory.selectedItem.toString()
-            var newName = binding.inputNewName.text.toString()
 
+            val newName = binding.inputNewName.text.toString()
             db.collection("expenses_categories")
                 .whereEqualTo("userID", userID)
+                .whereEqualTo("type",type)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         if (document.getString("name").toString() == newName) {
-                            j = +1;
+                            j = +1
                         }
                     }
                     if (j != 0) {
@@ -130,6 +190,7 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
                         db.collection("expenses_categories")
                             .whereEqualTo("userID", userID)
                             .whereEqualTo("name", categoryToEdit)
+                            .whereEqualTo("type",type)
                             .addSnapshotListener { snapshot, e ->
                                 if (e != null) {
                                     Log.w(ContentValues.TAG, "Listen Failed", e)
@@ -166,17 +227,17 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
                 }
         }
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.category_payments,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategory.adapter = adapter
-        }
 
-        populateSpinnerExpensesCategories(spinnerCategory, userID)
+
+
+
+
+
+
+        populateSpinnerCategories(spinnerCategory, userID)
         spinnerCategory.onItemSelectedListener = this
+        spinnerType.onItemSelectedListener = this
+
         return binding.root
     }
 
@@ -189,7 +250,7 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
 
     }
 
-    private fun populateSpinnerExpensesCategories(spinner: Spinner, userID: String) {
+    private fun populateSpinnerCategories(spinner: Spinner, userID: String) {
         val categoriesRef: CollectionReference = db.collection("expenses_categories")
         val expensesCategories: ArrayList<String> = ArrayList()
         val adapter = ArrayAdapter(
