@@ -14,10 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentAccountsBinding
 import com.womannotfound.odinia.databinding.FragmentEntryMoneyBinding
+import com.womannotfound.odinia.viewmodel.AccountsViewModel
 import com.womannotfound.odinia.viewmodel.EntryMoneyViewModel
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -37,6 +42,9 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val binding = DataBindingUtil.inflate<FragmentEntryMoneyBinding>(inflater,
             R.layout.fragment_entry_money,container,false)
+
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
 
         val calendar: Calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -70,22 +78,17 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Por favor ingrese datos validos", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(context, "Sus ingresos han sido añadidos exitosamente", Toast.LENGTH_SHORT).show()
-                addEntryMoney(userID,entryMoneyViewModel.date,entryMoneyViewModel.account,entryMoneyViewModel.amount,entryMoneyViewModel.category,entryMoneyViewModel.note)
+                addEntryMoney(userID,entryMoneyViewModel.date,entryMoneyViewModel.account,entryMoneyViewModel.amount,
+                    entryMoneyViewModel.category,entryMoneyViewModel.note, currentDate)
             }
         }
 
         val spinnerCategories = binding.spinnerEntryCategories
+        val spinnerAccounts:Spinner = binding.spinnerAccounts
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.accounts,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerAccounts.adapter = adapter
-        }
 
         populateSpinnerCategories(spinnerCategories as Spinner)
+        populateSpinnerAccounts(spinnerAccounts as Spinner, userID)
 
         binding.spinnerAccounts.onItemSelectedListener = this
         binding.spinnerEntryCategories.onItemSelectedListener = this
@@ -99,6 +102,27 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
+    }
+
+    private fun populateSpinnerAccounts(spinner: Spinner, userID: String){
+        val userAccounts: ArrayList<String> = ArrayList()
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            userAccounts
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.adapter = adapter;
+
+        db.collection("accounts").whereEqualTo("userID",userID).get().addOnCompleteListener{task ->
+            if(task.isSuccessful){
+                for(document: QueryDocumentSnapshot in task.result!!){
+                    val account: String? = document.getString("nameAccount")
+                    userAccounts.add(account!!)
+                }
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
     private fun populateSpinnerCategories(spinner: Spinner){
@@ -123,14 +147,44 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun addEntryMoney(userId: String, dateEntry: String, accountEntry: String, amountEntry: String, categoryEntry: String, noteEntry: String ){
+    /*private fun updateAccountBalance(amountEntry: Double, nameAccount:String){
+        val balanceRef = db.collection("account").document()
+        db.runTransaction{
+            transaction ->
+            val snapshot = transaction.get(balanceRef)
+            val newBalance = snapshot.getDouble("balanceAccount")!! + amountEntry
+            transaction.update(balanceRef, "balanceAccount", newBalance)
+        }.addOnSuccessListener { Log.d("updateBalance", "Transaction Success!") }
+            .addOnFailureListener { Log.w("updateBalance", "Transaction Failure") }
+    }*/
+
+    private fun updateAccountBalance(amountEntry: Float, nameAccount:String){
+        val balanceRef = db.collection("accounts")
+        balanceRef
+            .whereEqualTo("nameAccount", nameAccount)
+            .get()
+            .addOnSuccessListener { document ->
+                if(document != null){
+                    val balance =
+                }
+            }
+
+
+    }
+
+
+
+
+    private fun addEntryMoney(userId: String, dateEntry: String, accountEntry: String, amountEntry: String,
+                              categoryEntry: String, noteEntry: String, createdAt: String){
         val entry = hashMapOf(
             "userID" to userId,
             "dateEntry" to dateEntry,
             "accountEntry" to accountEntry,
             "amountEntry" to amountEntry,
             "categoryEntry" to categoryEntry,
-            "noteEntry" to noteEntry
+            "noteEntry" to noteEntry,
+            "createdAt" to createdAt
         )
         db.collection("entries_money")
             .add(entry)
