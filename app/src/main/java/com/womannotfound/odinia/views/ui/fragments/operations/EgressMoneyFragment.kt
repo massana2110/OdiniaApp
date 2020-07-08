@@ -81,7 +81,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         populateSpinnerAccountS(spinnerAccounts, user.uid)
-        populateSpinnerExpensesCategories(spinnerCategories)
+        populateSpinnerExpensesCategories(spinnerCategories,user.uid)
 
         spinnerAccounts.onItemSelectedListener = this
         spinnerCategories.onItemSelectedListener = this
@@ -121,9 +121,9 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
 
-    private fun populateSpinnerExpensesCategories(spinner: Spinner) {
+    private fun populateSpinnerExpensesCategories(spinner: Spinner, userID: String) {
         val categoriesRef: CollectionReference = db.collection("expenses_categories")
-        val expensesCategories: ArrayList<String> = ArrayList()
+        val expensesCategories: java.util.ArrayList<String> = java.util.ArrayList()
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -135,10 +135,12 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         categoriesRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 for (document in task.result!!) {
-                    val category = document.getString("name")
-                    expensesCategories.add(category!!)
+                    if (document.getString("userID").toString() == userID) {
+                        val category = document.getString("name")
+                        expensesCategories.add(category!!)
+                    }
+                    adapter.notifyDataSetChanged()
                 }
-                adapter.notifyDataSetChanged()
             }
         }
     }

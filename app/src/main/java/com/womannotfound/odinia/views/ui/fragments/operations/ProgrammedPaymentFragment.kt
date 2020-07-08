@@ -47,6 +47,7 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
 
         val userID = auth.currentUser?.uid.toString()
         val spinnerAccounts: Spinner = binding.spinnerAccounts
+        val spinnerCategory: Spinner = binding.addCategory
 
         viewModel = activity?.run {
             ViewModelProvider(
@@ -59,10 +60,10 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
             viewModel.name = binding.namePayment.text.toString()
             viewModel.category = binding.addCategory.selectedItem.toString()
             viewModel.amount = binding.addAmount.text.toString()
-            viewModel.account= binding.spinnerAccounts.selectedItem.toString()
+            viewModel.account = binding.spinnerAccounts.selectedItem.toString()
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            viewModel.inputDate= currentDate
+            viewModel.inputDate = currentDate
             //date
             val day = binding.addDate.dayOfMonth.toString()
             val month = binding.addDate.month + 1
@@ -94,14 +95,18 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.addCategory.adapter = adapter
+            spinnerCategory.adapter = adapter
         }
+
+
 
 
 
 
         populateSpinnerAccounts(spinnerAccounts, userID)
         spinnerAccounts.onItemSelectedListener = this
+        populateSpinnerExpensesCategories(spinnerCategory, userID)
+        spinnerCategory.onItemSelectedListener = this
 
 
         return binding.root
@@ -138,6 +143,30 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
                     }
                 }
                 adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun populateSpinnerExpensesCategories(spinner: Spinner, userID: String) {
+        val categoriesRef: CollectionReference = db.collection("expenses_categories")
+        val expensesCategories: ArrayList<String> = ArrayList()
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            expensesCategories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter;
+
+        categoriesRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    if (document.getString("userID").toString() == userID) {
+                        val category = document.getString("name")
+                        expensesCategories.add(category!!)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
     }

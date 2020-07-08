@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn_add" />
 
     <Spinner
-        android:id="@+id/spinnerAccounts"
+        android:id="@+id/spinnerCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/fab_margin"
@@ -103,7 +103,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/small_text_settings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerAccounts" />
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory" />
 
 
 
