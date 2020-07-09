@@ -162,6 +162,8 @@
     <string name="log_out">Cerrar Sesion</string>
     <string name="txt_Payment_Account">Cuenta</string>
     <string name="txt_settings_categories_type">Tipo de categoria</string>
+    <string name="txt_Pin_Authentication">Ingrese su codigo PIN</string>
+    <string name="txt_confirm">Confirmar</string>
     <string name="example_name">Sueldo quincena</string>
     <string name="example_date">09:00, 13 Febrero, 2020</string>
     <string name="example_amount">$800.00</string>

@@ -1,26 +1,30 @@
 package com.womannotfound.odinia.views.ui.fragments.controls
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentSettingsProfileBinding
 import com.womannotfound.odinia.views.ui.activities.AuthenticationActivity
+import java.net.URI
 
 /**
  * A simple [Fragment] subclass.
  */
 class SettingsProfileFragment : Fragment() {
-
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +33,37 @@ class SettingsProfileFragment : Fragment() {
         val binding =DataBindingUtil.inflate<FragmentSettingsProfileBinding>(inflater,
         R.layout.fragment_settings_profile, container, false)
 
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+
+        val userID = auth.currentUser?.uid.toString()
+
+        binding.profileImage.setOnClickListener{
+
+        }
+
 
         binding.btnAdd.setOnClickListener{
-            val username = binding.editText.text.toString()
-            val email = binding.inputEmail.text.toString()
+            val newUsername = binding.editText.text.toString()
 
-            it.findNavController().navigate(SettingsProfileFragmentDirections.actionNavSettingsProfileFragmentToNavSettings(username,email))
+
+            if (newUsername == "" ) {
+                Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
+                    .show()
+            } else{
+                db.collection("users")
+                    .document(userID)
+                    .update("username", newUsername)
+                it.findNavController().navigate(SettingsProfileFragmentDirections.actionNavSettingsProfileFragmentToNavSettings())
+                Toast.makeText(
+                    context,
+                    "Cuenta editada exitosamente",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
         }
 
         binding.logOutButton.setOnClickListener {
