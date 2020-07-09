@@ -139,6 +139,10 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         val category = document.getString("name")
                         expensesCategories.add(category!!)
                     }
+                    if (document.getString("userID").toString() == "null") {
+                        val category = document.getString("name")
+                        expensesCategories.add(category!!)
+                    }
                     adapter.notifyDataSetChanged()
                 }
             }

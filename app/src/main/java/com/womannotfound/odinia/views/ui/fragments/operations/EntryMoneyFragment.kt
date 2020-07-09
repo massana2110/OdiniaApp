@@ -154,7 +154,6 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
     }
 
-
     private fun populateSpinnerCategories(spinner: Spinner, userID: String) {
         val categoriesRef: CollectionReference = db.collection("entries_categories")
         val entryCategories: ArrayList<String> = ArrayList()
@@ -170,6 +169,10 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (task.isSuccessful) {
                 for (document in task.result!!) {
                     if (document.getString("userID").toString() == userID) {
+                        val category = document.getString("name")
+                        entryCategories.add(category!!)
+                    }
+                    if (document.getString("userID").toString() == "null") {
                         val category = document.getString("name")
                         entryCategories.add(category!!)
                     }
