@@ -38,7 +38,16 @@ class SettingsSetPinFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
+
         val userID = auth.currentUser?.uid.toString()
+        var userPinBoolean=""
+
+
+        db.collection("users").document(userID)
+            .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                userPinBoolean = documentSnapshot?.get("userPin").toString()
+            }
 
 
         binding.btnAdd.setOnClickListener {
@@ -48,7 +57,7 @@ class SettingsSetPinFragment : Fragment() {
             if (passwordPin == "") {
                 Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
                     .show()
-            } else {
+            } else if(userPinBoolean!="null"){
                 db.collection("users")
                     .document(userID)
                     .update("userPin", passwordPin)
@@ -60,9 +69,22 @@ class SettingsSetPinFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                passwordPin=""
+                passwordPin = ""
             }
-
+            else{
+                db.collection("users")
+                    .document(userID)
+                    .update("userPin", passwordPin)
+                it.findNavController()
+                    .navigate(SettingsSetPinFragmentDirections.actionNavSettingsSetPinFragmentToNavSettings())
+                Toast.makeText(
+                    context,
+                    "Pin agregado exitosamente",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                passwordPin = ""
+            }
         }
 
 
