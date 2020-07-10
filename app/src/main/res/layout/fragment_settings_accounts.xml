@@ -115,7 +115,7 @@
             app:layout_constraintTop_toBottomOf="@id/spinnerAccounts2" />
 
         <TextView
-            android:id="@+id/btn_datePicker"
+            android:id="@+id/choose_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fab_margin"
@@ -135,9 +135,9 @@
             android:ems="10"
             android:hint="@string/balance_entry_hint"
             android:inputType="numberDecimal"
-            app:layout_constraintBaseline_toBaselineOf="@id/btn_datePicker"
+            app:layout_constraintBaseline_toBaselineOf="@id/choose_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/btn_datePicker" />
+            app:layout_constraintStart_toStartOf="@id/choose_image" />
 
         <Button
             android:id="@+id/btn_add"
