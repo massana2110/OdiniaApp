@@ -1,6 +1,7 @@
 package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.app.DatePickerDialog
+import android.content.ContentValues
 import android.media.MediaDescription
 import android.media.MediaRouter
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentEgressMoneyBinding
 import com.womannotfound.odinia.viewmodel.EgressMoneyViewModel
+import com.womannotfound.odinia.viewmodel.PaymentsViewModel
 import com.womannotfound.odinia.views.ui.activities.MainActivity
 import kotlinx.android.synthetic.*
 import java.text.SimpleDateFormat
@@ -139,6 +141,10 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         val category = document.getString("name")
                         expensesCategories.add(category!!)
                     }
+                    if (document.getString("userID").toString() == "null") {
+                        val category = document.getString("name")
+                        expensesCategories.add(category!!)
+                    }
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -187,5 +193,60 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         db.collection("expenses").add(expense)
             .addOnSuccessListener { Toast.makeText(context, "Gasto registrado exitosamente", Toast.LENGTH_SHORT).show() }
             .addOnFailureListener { Toast.makeText(context, "Gasto no pudo ser registrado, intente de nuevo.", Toast.LENGTH_SHORT).show() }
+        updateBalance(userId,account,amount.toString())
+    }
+
+    private fun updateBalance(userID: String, accountName: String, amount: String) {
+        var i = 0
+        db.collection("accounts")
+            .whereEqualTo("userID", userID)
+            .whereEqualTo("nameAccount", accountName)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+
+                    val balance =
+                        document.getString("balanceAccount").toString()
+                    db.collection("accounts")
+                        .whereEqualTo("userID", userID)
+                        .whereEqualTo("nameAccount", accountName)
+                        .addSnapshotListener { snapshot, e ->
+                            if (e != null) {
+                                Log.w(ContentValues.TAG, "Listen Failed", e)
+                                return@addSnapshotListener
+                            }
+                            if (snapshot != null) {
+                                val documents = snapshot.documents
+                                documents.forEach {
+                                    val account = it.toObject(PaymentsViewModel::class.java)
+                                    if (account != null) {
+                                        val indocument = it.id
+
+                                        if (i == 0) {
+                                            db.collection("accounts")
+                                                .document(indocument)
+                                                .update(
+                                                    "balanceAccount",
+                                                    (balance.toFloat() - amount.toFloat()).toString()
+
+                                                )
+                                            i=+1
+
+                                        }
+                                    }
+
+
+                                }
+
+
+                            }
+
+                        }
+
+                }
+
+            }
+
+
     }
 }

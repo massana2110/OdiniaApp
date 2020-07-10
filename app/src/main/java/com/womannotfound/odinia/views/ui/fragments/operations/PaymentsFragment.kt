@@ -101,7 +101,7 @@ class PaymentsFragment : Fragment() {
         viewModel.category = ""
         viewModel.amount = ""
         viewModel.date = ""
-        viewModel.inputDate=""
+        viewModel.inputDate = ""
 
 
         viewManager = LinearLayoutManager(context)
@@ -115,7 +115,15 @@ class PaymentsFragment : Fragment() {
         return binding.root
     }
 
-    private fun addPayment(userID: String, namePayment: String, accountName: String, categoryPayment: String, amountPayment: String, datePayment: String,inputDate: String) {
+    private fun addPayment(
+        userID: String,
+        namePayment: String,
+        accountName: String,
+        categoryPayment: String,
+        amountPayment: String,
+        datePayment: String,
+        inputDate: String
+    ) {
         val user = hashMapOf(
             "userID" to userID,
             "namePayment" to namePayment,
@@ -129,7 +137,7 @@ class PaymentsFragment : Fragment() {
             .add(user)
             .addOnSuccessListener { Log.d("AddPayment", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { Log.w("AddPayment", "Error writing document") }
-        updateBalance(userID, accountName, amountPayment)
+         updateBalance(userID, accountName, amountPayment)
 
     }
 
@@ -143,8 +151,6 @@ class PaymentsFragment : Fragment() {
                     val category = document.getString("categoryPayment").toString()
                     var amount = "$${document.getString("amountPayment").toString()}"
                     val date = document.getString("datePayment").toString()
-
-
 
 
                     val item = PaymentsItems(R.drawable.ic_ingresos, name, category, amount, date)
@@ -171,8 +177,7 @@ class PaymentsFragment : Fragment() {
 
 
     private fun updateBalance(userID: String, accountName: String, amount: String) {
-
-
+        var i = 0
         db.collection("accounts")
             .whereEqualTo("userID", userID)
             .whereEqualTo("nameAccount", accountName)
@@ -197,15 +202,17 @@ class PaymentsFragment : Fragment() {
                                     if (account != null) {
                                         val indocument = it.id
 
+                                        if (i == 0) {
+                                            db.collection("accounts")
+                                                .document(indocument)
+                                                .update(
+                                                    "balanceAccount",
+                                                    (balance.toFloat() - amount.toFloat()).toString()
 
-                                        db.collection("accounts")
-                                            .document(indocument)
-                                            .update(
-                                                "balanceAccount",
-                                                (balance.toFloat() - amount.toFloat()).toString()
+                                                )
+                                            i=+1
 
-                                            )
-
+                                        }
                                     }
 
 

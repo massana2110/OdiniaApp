@@ -154,7 +154,6 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
     }
 
-
     private fun populateSpinnerCategories(spinner: Spinner, userID: String) {
         val categoriesRef: CollectionReference = db.collection("entries_categories")
         val entryCategories: ArrayList<String> = ArrayList()
@@ -173,6 +172,10 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         val category = document.getString("name")
                         entryCategories.add(category!!)
                     }
+                    if (document.getString("userID").toString() == "null") {
+                        val category = document.getString("name")
+                        entryCategories.add(category!!)
+                    }
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -180,6 +183,8 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun updateAccountBalance(userID: String, amountEntry: String, nameAccount: String) {
+        var i = 0
+
         val balanceRef = db.collection("accounts")
         balanceRef
             .whereEqualTo("userID", userID)
@@ -203,39 +208,42 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                                     val account = it.toObject(PaymentsViewModel::class.java)
                                     if (account != null) {
                                         val indocument = it.id
+                                        if (i == 0) {
+                                            db.collection("accounts")
+                                                .document(indocument)
+                                                .update(
+                                                    "balanceAccount",
+                                                    (balance.toFloat() + amountEntry.toFloat()).toString()
 
-                                        balanceRef
-                                            .document(indocument)
-                                            .update(
-                                                "balanceAccount",
-                                                (balance.toFloat() + amountEntry.toFloat()).toString()
-                                            )
+                                                )
+                                            i = +1
+                                        }
                                     }
                                 }
-                            }
 
+                            }
                         }
                 }
             }
     }
 
-    private fun addEntryMoney(
-        userId: String, dateEntry: String, accountEntry: String, amountEntry: String,
-        categoryEntry: String, noteEntry: String, createdAt: String
-    ) {
-        val entry = hashMapOf(
-            "userID" to userId,
-            "dateEntry" to dateEntry,
-            "accountEntry" to accountEntry,
-            "amountEntry" to amountEntry,
-            "categoryEntry" to categoryEntry,
-            "noteEntry" to noteEntry,
-            "createdAt" to createdAt
-        )
-        db.collection("entries_money")
-            .add(entry)
-            .addOnSuccessListener { Log.d("addEntry", "DocumentSnapshot succesfully written!") }
-            .addOnFailureListener { Log.w("addEntry", "Error writing document") }
-    }
+        private fun addEntryMoney(
+            userId: String, dateEntry: String, accountEntry: String, amountEntry: String,
+            categoryEntry: String, noteEntry: String, createdAt: String
+        ) {
+            val entry = hashMapOf(
+                "userID" to userId,
+                "dateEntry" to dateEntry,
+                "accountEntry" to accountEntry,
+                "amountEntry" to amountEntry,
+                "categoryEntry" to categoryEntry,
+                "noteEntry" to noteEntry,
+                "createdAt" to createdAt
+            )
+            db.collection("entries_money")
+                .add(entry)
+                .addOnSuccessListener { Log.d("addEntry", "DocumentSnapshot succesfully written!") }
+                .addOnFailureListener { Log.w("addEntry", "Error writing document") }
+        }
 
-}
+    }
