@@ -46,6 +46,7 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
         db = FirebaseFirestore.getInstance()
 
         val userID = auth.currentUser?.uid.toString()
+
         val spinnerAccounts: Spinner = binding.spinnerAccounts
         val spinnerCategory: Spinner = binding.addCategory
 
@@ -61,6 +62,7 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
             viewModel.category = binding.addCategory.selectedItem.toString()
             viewModel.amount = binding.addAmount.text.toString()
             viewModel.account = binding.spinnerAccounts.selectedItem.toString()
+
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
             viewModel.inputDate = currentDate
@@ -169,7 +171,6 @@ class ProgrammedPaymentFragment : Fragment(), AdapterView.OnItemSelectedListener
                         val category = document.getString("name")
                         expensesCategories.add(category!!)
                     }
-
                     adapter.notifyDataSetChanged()
                 }
             }
