@@ -65,10 +65,11 @@
 
     <string-array name="cardview_color">
         <item>Predeterminado</item>
-        <item>Rojo</item>
+        <item>Azul</item>
+        <item>Gris oscuro</item>
         <item>Verde</item>
-        <item>Naranja</item>
-        <item>Celeste</item>
+        <item>Magenta</item>
+        <item>Cyan</item>
     </string-array>
 
     <string name="no_account_message">No tienes ninguna cuenta asociada</string>
