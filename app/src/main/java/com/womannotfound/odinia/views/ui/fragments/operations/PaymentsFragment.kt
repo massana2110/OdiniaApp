@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,11 +16,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentPaymentsBinding
-import com.womannotfound.odinia.viewmodel.AccountsViewModel
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.PaymentsItems
-
 
 class PaymentsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -61,9 +58,6 @@ class PaymentsFragment : Fragment() {
             binding.layoutPayment.removeView(binding.txtMsg)
             binding.layoutPayment.removeView(binding.addMsg)
 
-            binding.recyclerView.isVisible = true
-
-            val accountName = viewModel.account
             val amount = "$${viewModel.amount}"
             val itemB = PaymentsItems(
                 R.drawable.ic_ingresos,
@@ -72,7 +66,7 @@ class PaymentsFragment : Fragment() {
                 amount,
                 viewModel.date
             )
-            viewModel.list += itemB
+            viewModel.list.add(itemB)
 
 
 
@@ -87,12 +81,10 @@ class PaymentsFragment : Fragment() {
             )
 
         } else if (viewModel.list.isNotEmpty()) {
-            binding.layoutPayment.removeView(binding.logoView)
-            binding.layoutPayment.removeView(binding.txtPaymentSch)
-            binding.layoutPayment.removeView(binding.txtMsg)
-            binding.layoutPayment.removeView(binding.addMsg)
-
-            binding.recyclerView.isVisible = true
+                binding.layoutPayment.removeView(binding.logoView)
+                binding.layoutPayment.removeView(binding.txtPaymentSch)
+                binding.layoutPayment.removeView(binding.txtMsg)
+                binding.layoutPayment.removeView(binding.addMsg)
         } else {
             getPayments(userID, binding)
         }
@@ -101,7 +93,7 @@ class PaymentsFragment : Fragment() {
         viewModel.category = ""
         viewModel.amount = ""
         viewModel.date = ""
-        viewModel.inputDate=""
+        viewModel.inputDate = ""
 
 
         viewManager = LinearLayoutManager(context)
@@ -115,7 +107,15 @@ class PaymentsFragment : Fragment() {
         return binding.root
     }
 
-    private fun addPayment(userID: String, namePayment: String, accountName: String, categoryPayment: String, amountPayment: String, datePayment: String,inputDate: String) {
+    private fun addPayment(
+        userID: String,
+        namePayment: String,
+        accountName: String,
+        categoryPayment: String,
+        amountPayment: String,
+        datePayment: String,
+        inputDate: String
+    ) {
         val user = hashMapOf(
             "userID" to userID,
             "namePayment" to namePayment,
@@ -129,7 +129,7 @@ class PaymentsFragment : Fragment() {
             .add(user)
             .addOnSuccessListener { Log.d("AddPayment", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { Log.w("AddPayment", "Error writing document") }
-        updateBalance(userID, accountName, amountPayment)
+         updateBalance(userID, accountName, amountPayment)
 
     }
 
@@ -141,10 +141,8 @@ class PaymentsFragment : Fragment() {
                 for (document in documents) {
                     val name = document.getString("namePayment").toString()
                     val category = document.getString("categoryPayment").toString()
-                    var amount = "$${document.getString("amountPayment").toString()}"
+                    val amount = "$${document.getString("amountPayment").toString()}"
                     val date = document.getString("datePayment").toString()
-
-
 
 
                     val item = PaymentsItems(R.drawable.ic_ingresos, name, category, amount, date)
@@ -171,8 +169,7 @@ class PaymentsFragment : Fragment() {
 
 
     private fun updateBalance(userID: String, accountName: String, amount: String) {
-
-
+        var i = 0
         db.collection("accounts")
             .whereEqualTo("userID", userID)
             .whereEqualTo("nameAccount", accountName)
@@ -197,15 +194,17 @@ class PaymentsFragment : Fragment() {
                                     if (account != null) {
                                         val indocument = it.id
 
+                                        if (i == 0) {
+                                            db.collection("accounts")
+                                                .document(indocument)
+                                                .update(
+                                                    "balanceAccount",
+                                                    (balance.toFloat() - amount.toFloat()).toString()
 
-                                        db.collection("accounts")
-                                            .document(indocument)
-                                            .update(
-                                                "balanceAccount",
-                                                (balance.toFloat() - amount.toFloat()).toString()
+                                                )
+                                            i=+1
 
-                                            )
-
+                                        }
                                     }
 
 
@@ -223,12 +222,3 @@ class PaymentsFragment : Fragment() {
 
     }
 }
-
-
-
-
-
-
-
-
-

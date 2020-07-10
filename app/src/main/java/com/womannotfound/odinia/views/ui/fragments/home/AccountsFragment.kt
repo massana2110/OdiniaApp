@@ -28,6 +28,8 @@ class AccountsFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    private lateinit var userID: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +45,7 @@ class AccountsFragment : Fragment() {
             Navigation.findNavController(it).navigate(HomeFragmentDirections.actionNavHomeToNavFormAccount())
         }
 
-        val userID = auth.currentUser?.uid.toString()
+        userID = auth.currentUser?.uid.toString()
         if( vm.type != "" && vm.balance != ""){
             binding.accountLayout.removeView(binding.txtMessageNoAcc)
             binding.accountLayout.removeView(binding.txtMessageAddAcc)
@@ -59,8 +61,8 @@ class AccountsFragment : Fragment() {
 
             addAccount(userID,vm.name,vm.type,vm.balance)
         }else if(vm.list.isNotEmpty()){
-                binding.accountLayout.removeView(binding.txtMessageNoAcc)
-                binding.accountLayout.removeView(binding.txtMessageAddAcc)
+            binding.accountLayout.removeView(binding.txtMessageNoAcc)
+            binding.accountLayout.removeView(binding.txtMessageAddAcc)
         }else {
             getAccounts(userID,binding)
         }
@@ -76,7 +78,14 @@ class AccountsFragment : Fragment() {
             layoutManager= viewManager
             adapter= viewAdapter
         }
+
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        dataChanged(userID)
     }
 
     private fun addAccount (userID: String, nameAccount: String, typeAccount: String, balanceAccount: String){
@@ -104,7 +113,6 @@ class AccountsFragment : Fragment() {
                     val item = AccountsItems(R.drawable.ic_ingresos,name,type,balance)
 
                     vm.list.add(item)
-                    recyclerView.adapter?.notifyDataSetChanged()
                 }
                 if(!documents.isEmpty){
                     binding.accountLayout.removeView(binding.txtMessageNoAcc)
@@ -112,5 +120,21 @@ class AccountsFragment : Fragment() {
                 }
             }
             .addOnFailureListener{ exception -> Log.w("getAccount", "Error getting documents", exception) }
+    }
+
+    private fun dataChanged(userID: String){
+        db.collection("accounts").whereEqualTo("userID",userID)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents){
+                    val name = document.getString("nameAccount").toString()
+                    vm.list.forEach{ item ->
+                        if( item.name == name){
+                            item.balance = "$${document.getString("balanceAccount").toString()}"
+                            viewAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
     }
 }

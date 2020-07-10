@@ -33,6 +33,7 @@
         android:fontFamily="@font/quicksand"
         android:hint="@string/hint_profilePassword_settings"
         android:inputType="numberPassword"
+
         android:textSize="@dimen/small_text_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

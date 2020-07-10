@@ -47,17 +47,8 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
 
 
         val userID = auth.currentUser?.uid.toString()
-        val spinnerCategory: Spinner = binding.spinnerCategory
-        val spinnerType: Spinner =binding.spinnerType
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.category_payments,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategory.adapter = adapter
-        }
+        val spinnerType: Spinner =binding.spinnerType
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -159,83 +150,12 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
         }
 
 
-        binding.btnAdd2.setOnClickListener {
-            var j = 0;
-            val type = binding.spinnerType.selectedItem.toString()
-            val categoryToEdit = binding.spinnerCategory.selectedItem.toString()
-
-            val newName = binding.inputNewName.text.toString()
-            db.collection("expenses_categories")
-                .whereEqualTo("userID", userID)
-                .whereEqualTo("type",type)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.getString("name").toString() == newName) {
-                            j = +1
-                        }
-                    }
-                    if (j != 0) {
-                        Toast.makeText(
-                            context,
-                            "Error: Nombre de categoria existente",
-                            Toast.LENGTH_SHORT
-
-                        ).show()
-
-                    } else if (newName == "") {
-                        Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        db.collection("expenses_categories")
-                            .whereEqualTo("userID", userID)
-                            .whereEqualTo("name", categoryToEdit)
-                            .whereEqualTo("type",type)
-                            .addSnapshotListener { snapshot, e ->
-                                if (e != null) {
-                                    Log.w(ContentValues.TAG, "Listen Failed", e)
-                                    return@addSnapshotListener
-                                }
-                                if (snapshot != null) {
-                                    val documents = snapshot.documents
-                                    documents.forEach {
-                                        val expense = it.toObject(PaymentsViewModel::class.java)
-                                        if (expense != null) {
-                                            val indocument = it.id
-                                            db.collection("expenses_categories")
-                                                .document(indocument)
-                                                .update("name", newName)
-                                        }
-
-
-                                    }
-
-
-                                }
-
-                            }
-                        it.findNavController()
-                            .navigate(SettingsCategoriesFragmentDirections.actionNavSettingsCategoriesFragmentToNavSettings())
-                        Toast.makeText(
-                            context,
-                            "Categoria editada  exitosamente",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-
-                    }
-                }
-        }
 
 
 
 
 
 
-
-
-        populateSpinnerCategories(spinnerCategory, userID)
-        spinnerCategory.onItemSelectedListener = this
         spinnerType.onItemSelectedListener = this
 
         return binding.root
@@ -248,30 +168,6 @@ class SettingsCategoriesFragment : Fragment(), AdapterView.OnItemSelectedListene
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-    }
-
-    private fun populateSpinnerCategories(spinner: Spinner, userID: String) {
-        val categoriesRef: CollectionReference = db.collection("expenses_categories")
-        val expensesCategories: ArrayList<String> = ArrayList()
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            expensesCategories
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter;
-
-        categoriesRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                for (document in task.result!!) {
-                    if (document.getString("userID").toString() == userID) {
-                        val category = document.getString("name")
-                        expensesCategories.add(category!!)
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-            }
-        }
     }
 
 

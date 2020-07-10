@@ -163,6 +163,17 @@
     <string name="log_out">Cerrar Sesion</string>
     <string name="txt_Payment_Account">Cuenta</string>
     <string name="txt_settings_categories_type">Tipo de categoria</string>
+    <string name="txt_Pin_Authentication">Ingrese su codigo PIN</string>
+    <string name="txt_confirm">Confirmar</string>
+    <string name="example_name">Sueldo quincena</string>
+    <string name="example_date">09:00, 13 Febrero, 2020</string>
+    <string name="example_amount">$800.00</string>
+    <string name="card_text">not</string>
+    <string name="example_type">Tarjeta debito</string>
+    <string name="example_namev2">Banco Credomatic</string>
+    <string name="example_namev3">PAGO DE UNIVERSIDAD</string>
+    <string name="example_category">Estudios</string>
+    <string name="example_datev2">20/05/2020</string>
 
     <string-array name="types_of_accounts">
         <item>Efectivo</item>
