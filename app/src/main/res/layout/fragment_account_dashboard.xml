@@ -10,13 +10,12 @@
 
         tools:context=".views.ui.fragments.dashboard.AccountDashboardFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/activityLayout">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewPayments"
@@ -24,10 +23,12 @@
                 android:layout_height="80dp"
 
 
+                android:layout_marginTop="@dimen/margin_indicators"
+                android:layout_marginBottom="@dimen/small_padding"
                 app:cardBackgroundColor="@color/colorActivityPayments"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
-                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
+                app:layout_constraintBottom_toTopOf="@+id/recycler_view_activities"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -49,11 +50,13 @@
                 android:id="@+id/cardViewEntry"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_marginTop="@dimen/margin_indicators"
                 android:layout_marginEnd="@dimen/n_margin"
+                android:layout_marginBottom="@dimen/small_padding"
                 app:cardBackgroundColor="@color/colorActivityEntries"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
-                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
+                app:layout_constraintBottom_toTopOf="@+id/recycler_view_activities"
                 app:layout_constraintEnd_toStartOf="@id/cardViewPayments"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -74,10 +77,12 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="@dimen/n_margin"
+                android:layout_marginTop="@dimen/margin_indicators"
+                android:layout_marginBottom="@dimen/small_padding"
                 app:cardBackgroundColor="@color/colorSocialCard"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
-                app:layout_constraintBottom_toTopOf="@id/textViewEmpty"
+                app:layout_constraintBottom_toTopOf="@+id/recycler_view_activities"
                 app:layout_constraintStart_toEndOf="@id/cardViewPayments"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -120,14 +125,16 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_activities"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/small_padding"
                 android:clipToPadding="false"
                 android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintBottom_toTopOf="@+id/textViewGraphs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewPayments"
-                tools:layout_editor_absoluteX="16dp"
                 tools:listitem="@layout/activities_item" />
 
             <View

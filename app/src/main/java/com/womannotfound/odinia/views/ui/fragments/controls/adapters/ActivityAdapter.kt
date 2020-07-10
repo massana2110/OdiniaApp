@@ -33,6 +33,6 @@ class ActivityAdapter(private val ActivityList:List<ActivitiesItems>): RecyclerV
         val cardView: CardView = ItemView.card_color
         val activityName: TextView = ItemView.activity_name
         val activityDate: TextView = ItemView.activity_date
-        val activityAmount: TextView = ItemView.activity_name
+        val activityAmount: TextView = ItemView.activity_amount
     }
 }

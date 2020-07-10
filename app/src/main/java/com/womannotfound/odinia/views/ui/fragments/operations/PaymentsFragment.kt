@@ -58,9 +58,6 @@ class PaymentsFragment : Fragment() {
             binding.layoutPayment.removeView(binding.txtMsg)
             binding.layoutPayment.removeView(binding.addMsg)
 
-            binding.recyclerView.isVisible = true
-
-            val accountName = viewModel.account
             val amount = "$${viewModel.amount}"
             val itemB = PaymentsItems(
                 R.drawable.ic_ingresos,
