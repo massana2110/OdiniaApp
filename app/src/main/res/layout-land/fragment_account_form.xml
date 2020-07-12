@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,16 +21,17 @@
             android:id="@+id/btn_add"
             style="@android:style/Widget.Button"
             android:layout_width="142dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="57dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/n_margin"
+            android:layout_marginBottom="@dimen/small_padding"
             android:background="@drawable/buttons_style"
             android:fontFamily="@font/quicksand_medium"
             android:text="@string/btn_add"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
+            android:textSize="@dimen/big_text_settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balance_entry" />
 
@@ -67,6 +68,7 @@
             android:layout_marginStart="@dimen/n_margin"
             android:fontFamily="@font/quicksand_medium"
             android:text="@string/txt_balance"
+            android:textSize="@dimen/normal_text_size"
             app:layout_constraintBottom_toTopOf="@+id/balance_entry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -75,11 +77,12 @@
 
         <TextView
             android:id="@+id/account_type"
-            android:layout_width="122dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/n_margin"
             android:fontFamily="@font/quicksand_medium"
             android:text="@string/type_account"
+            android:textSize="@dimen/normal_text_size"
             app:layout_constraintBottom_toTopOf="@+id/acc_type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -88,10 +91,12 @@
 
         <TextView
             android:id="@+id/txt_name_acc"
-            android:layout_width="122dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/n_margin"
+            android:layout_marginTop="@dimen/small_padding"
             android:text="@string/name_acc"
+            android:textSize="@dimen/normal_text_size"
             app:layout_constraintBottom_toTopOf="@+id/text_entry_name_acc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

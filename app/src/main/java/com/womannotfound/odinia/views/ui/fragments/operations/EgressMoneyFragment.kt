@@ -2,8 +2,6 @@ package com.womannotfound.odinia.views.ui.fragments.operations
 
 import android.app.DatePickerDialog
 import android.content.ContentValues
-import android.media.MediaDescription
-import android.media.MediaRouter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,15 +20,10 @@ import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentEgressMoneyBinding
 import com.womannotfound.odinia.viewmodel.EgressMoneyViewModel
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
-import com.womannotfound.odinia.views.ui.activities.MainActivity
-import kotlinx.android.synthetic.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A simple [Fragment] subclass.
- */
 class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var db: FirebaseFirestore
@@ -70,6 +63,9 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
 
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
 
         btnDatePicker.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
@@ -104,14 +100,9 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     Toast.makeText(context, "Por favor ingrese datos validos", Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    recordExpense(
-                        user.uid,
-                        egressvm.date,
-                        egressvm.account,
-                        egressvm.amount,
-                        egressvm.category,
-                        egressvm.note
-                    )
+                    recordExpense(user.uid, egressvm.date, egressvm.account, egressvm.amount, egressvm.category, egressvm.note)
+
+                    addActivity(user.uid,egressvm.note,egressvm.date,egressvm.amount.toString(),"#393F56",currentDate,egressvm.account)
                 }
             }
         }
@@ -132,7 +123,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             expensesCategories
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter;
+        spinner.adapter = adapter
 
         categoriesRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -173,14 +164,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun recordExpense(
-        userId: String,
-        date: String,
-        account: String,
-        amount: Float,
-        category: String,
-        description: String
-    ) {
+    private fun recordExpense(userId: String, date: String, account: String, amount: Float, category: String, description: String) {
         val expense = hashMapOf(
             "userId" to userId,
             "dateEgress" to date,
@@ -191,9 +175,11 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
 
         db.collection("expenses").add(expense)
-            .addOnSuccessListener { Toast.makeText(context, "Gasto registrado exitosamente", Toast.LENGTH_SHORT).show() }
+            .addOnSuccessListener {
+                Toast.makeText(context, "Gasto registrado exitosamente", Toast.LENGTH_SHORT).show()
+                updateBalance(userId, account, amount.toString())
+            }
             .addOnFailureListener { Toast.makeText(context, "Gasto no pudo ser registrado, intente de nuevo.", Toast.LENGTH_SHORT).show() }
-        updateBalance(userId,account,amount.toString())
     }
 
     private fun updateBalance(userID: String, accountName: String, amount: String) {
@@ -248,5 +234,19 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
 
 
+    }
+
+    private fun addActivity(userID: String, activityName: String, activityDate: String, activityAmount: String, cardColor: String, inputDate: String, account: String){
+        val activity = hashMapOf(
+            "userID" to userID,
+            "activityName" to activityName,
+            "activityDate" to activityDate,
+            "activityAmount" to activityAmount,
+            "cardColor" to cardColor,
+            "createdAt" to inputDate,
+            "accountName" to account
+        )
+
+        db.collection("activities").add(activity)
     }
 }

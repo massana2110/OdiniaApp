@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -17,15 +16,12 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.womannotfound.odinia.R
-import com.womannotfound.odinia.databinding.FragmentAccountsBinding
 import com.womannotfound.odinia.databinding.FragmentEntryMoneyBinding
-import com.womannotfound.odinia.viewmodel.AccountsViewModel
 import com.womannotfound.odinia.viewmodel.EntryMoneyViewModel
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -87,25 +83,10 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Por favor, no dejar campos vacios", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                Toast.makeText(
-                    context,
-                    "Sus ingresos han sido añadidos exitosamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-                addEntryMoney(
-                    userID,
-                    entryMoneyViewModel.date,
-                    entryMoneyViewModel.account,
-                    entryMoneyViewModel.amount,
-                    entryMoneyViewModel.category,
-                    entryMoneyViewModel.note,
-                    currentDate
-                )
-                updateAccountBalance(
-                    userID,
-                    entryMoneyViewModel.amount,
-                    entryMoneyViewModel.account
-                )
+                //Toast.makeText(context, "Sus ingresos han sido añadidos exitosamente", Toast.LENGTH_SHORT).show()
+                addEntryMoney(userID, entryMoneyViewModel.date, entryMoneyViewModel.account, entryMoneyViewModel.amount, entryMoneyViewModel.category, entryMoneyViewModel.note, currentDate)
+                //updateAccountBalance(userID, entryMoneyViewModel.amount, entryMoneyViewModel.account)
+                addActivity(userID,entryMoneyViewModel.note,entryMoneyViewModel.date,entryMoneyViewModel.amount,"#98878F",currentDate, entryMoneyViewModel.account)
             }
         }
 
@@ -183,67 +164,80 @@ class EntryMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun updateAccountBalance(userID: String, amountEntry: String, nameAccount: String) {
-        var i = 0
+    var i = 0
 
-        val balanceRef = db.collection("accounts")
-        balanceRef
-            .whereEqualTo("userID", userID)
-            .whereEqualTo("nameAccount", nameAccount)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val balance: String =
-                        document.getString("balanceAccount").toString()
-                    balanceRef
-                        .whereEqualTo("userID", userID)
-                        .whereEqualTo("nameAccount", nameAccount)
-                        .addSnapshotListener { snapshot, e ->
-                            if (e != null) {
-                                Log.w("updateBalance", "Listen Failed", e)
-                                return@addSnapshotListener
-                            }
-                            if (snapshot != null) {
-                                val documents: MutableList<DocumentSnapshot> = snapshot!!.documents
-                                documents.forEach {
-                                    val account = it.toObject(PaymentsViewModel::class.java)
-                                    if (account != null) {
-                                        val indocument = it.id
-                                        if (i == 0) {
-                                            db.collection("accounts")
-                                                .document(indocument)
-                                                .update(
-                                                    "balanceAccount",
-                                                    (balance.toFloat() + amountEntry.toFloat()).toString()
+    val balanceRef = db.collection("accounts")
+    balanceRef
+        .whereEqualTo("userID", userID)
+        .whereEqualTo("nameAccount", nameAccount)
+        .get()
+        .addOnSuccessListener { documents ->
+            for (document in documents) {
+                val balance: String =
+                    document.getString("balanceAccount").toString()
+                balanceRef
+                    .whereEqualTo("userID", userID)
+                    .whereEqualTo("nameAccount", nameAccount)
+                    .addSnapshotListener { snapshot, e ->
+                        if (e != null) {
+                            Log.w("updateBalance", "Listen Failed", e)
+                            return@addSnapshotListener
+                        }
+                        if (snapshot != null) {
+                            val documents: MutableList<DocumentSnapshot> = snapshot!!.documents
+                            documents.forEach {
+                                val account = it.toObject(PaymentsViewModel::class.java)
+                                if (account != null) {
+                                    val indocument = it.id
+                                    if (i == 0) {
+                                        db.collection("accounts")
+                                            .document(indocument)
+                                            .update(
+                                                "balanceAccount",
+                                                (balance.toFloat() + amountEntry.toFloat()).toString()
 
-                                                )
-                                            i = +1
-                                        }
+                                            )
+                                        i = +1
                                     }
                                 }
-
                             }
+
                         }
-                }
+                    }
             }
-    }
-
-        private fun addEntryMoney(
-            userId: String, dateEntry: String, accountEntry: String, amountEntry: String,
-            categoryEntry: String, noteEntry: String, createdAt: String
-        ) {
-            val entry = hashMapOf(
-                "userID" to userId,
-                "dateEntry" to dateEntry,
-                "accountEntry" to accountEntry,
-                "amountEntry" to amountEntry,
-                "categoryEntry" to categoryEntry,
-                "noteEntry" to noteEntry,
-                "createdAt" to createdAt
-            )
-            db.collection("entries_money")
-                .add(entry)
-                .addOnSuccessListener { Log.d("addEntry", "DocumentSnapshot succesfully written!") }
-                .addOnFailureListener { Log.w("addEntry", "Error writing document") }
         }
+}
 
+    private fun addEntryMoney(userId: String, dateEntry: String, accountEntry: String, amountEntry: String, categoryEntry: String, noteEntry: String, createdAt: String) {
+        val entry = hashMapOf(
+            "userID" to userId,
+            "dateEntry" to dateEntry,
+            "accountEntry" to accountEntry,
+            "amountEntry" to amountEntry,
+            "categoryEntry" to categoryEntry,
+            "noteEntry" to noteEntry,
+            "createdAt" to createdAt
+        )
+        db.collection("entries_money")
+            .add(entry)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Sus ingresos han sido añadidos exitosamente", Toast.LENGTH_SHORT).show()
+                updateAccountBalance(userId, amountEntry, accountEntry)
+            }
+            .addOnFailureListener { Toast.makeText(context, "Sus ingresos no se han registrado, intente de nuevo.", Toast.LENGTH_SHORT).show() }
     }
+
+    private fun addActivity(userID: String, activityName: String, activityDate: String, activityAmount: String, cardColor: String, inputDate: String,account: String){
+        val activity = hashMapOf(
+            "userID" to userID,
+            "activityName" to activityName,
+            "activityDate" to activityDate,
+            "activityAmount" to activityAmount,
+            "cardColor" to cardColor,
+            "createdAt" to inputDate,
+            "accountName" to account
+        )
+
+        db.collection("activities").add(activity)
+    }
+}

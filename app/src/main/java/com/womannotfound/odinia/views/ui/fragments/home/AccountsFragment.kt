@@ -11,8 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentAccountsBinding
 import com.womannotfound.odinia.viewmodel.AccountsViewModel
@@ -25,10 +28,11 @@ class AccountsFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: AccountAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private lateinit var userID: String
+    private lateinit var accountRef: CollectionReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,42 +54,18 @@ class AccountsFragment : Fragment() {
             binding.accountLayout.removeView(binding.txtMessageNoAcc)
             binding.accountLayout.removeView(binding.txtMessageAddAcc)
 
-            val balance = "$${vm.balance}"
-            val itemB = AccountsItems(
-                R.drawable.ic_ingresos,
-                vm.name,
-                vm.type,
-                balance
-            )
-            vm.list.add(itemB)
-
             addAccount(userID,vm.name,vm.type,vm.balance)
-        }else if(vm.list.isNotEmpty()){
-            binding.accountLayout.removeView(binding.txtMessageNoAcc)
-            binding.accountLayout.removeView(binding.txtMessageAddAcc)
-        }else {
-            getAccounts(userID,binding)
         }
+
+        accountRef = db.collection("accounts")
 
         vm.name = ""
         vm.type = ""
         vm.balance= ""
 
-        viewManager = LinearLayoutManager(context)
-        viewAdapter = AccountAdapter(vm.list)
-        recyclerView = binding.recyclerViewAccounts.apply {
-            setHasFixedSize(true)
-            layoutManager= viewManager
-            adapter= viewAdapter
-        }
 
+        setUpRecyclerView(binding, userID)
         return binding.root
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        dataChanged(userID)
     }
 
     private fun addAccount (userID: String, nameAccount: String, typeAccount: String, balanceAccount: String){
@@ -101,40 +81,34 @@ class AccountsFragment : Fragment() {
             .addOnFailureListener{ Log.w("AddAccount","Error writing document")}
     }
 
-    private fun getAccounts(userID: String, binding: FragmentAccountsBinding){
-        db.collection("accounts")
-            .whereEqualTo("userID",userID)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents){
-                    val name = document.getString("nameAccount").toString()
-                    val type = document.getString("typeAccount").toString()
-                    val balance = "$${document.getString("balanceAccount").toString()}"
-                    val item = AccountsItems(R.drawable.ic_ingresos,name,type,balance)
+    private fun setUpRecyclerView(binding: FragmentAccountsBinding, userID: String){
+        val query : Query = accountRef.whereEqualTo("userID", userID)
+        val options = FirestoreRecyclerOptions.Builder<AccountsItems>().setQuery(query, AccountsItems::class.java).build()
 
-                    vm.list.add(item)
-                }
-                if(!documents.isEmpty){
-                    binding.accountLayout.removeView(binding.txtMessageNoAcc)
-                    binding.accountLayout.removeView(binding.txtMessageAddAcc)
-                }
+        viewManager = LinearLayoutManager(context)
+        viewAdapter = AccountAdapter(options)
+        recyclerView = binding.recyclerViewAccounts.apply {
+            setHasFixedSize(true)
+            layoutManager= viewManager
+            adapter= viewAdapter
+        }
+
+        query.addSnapshotListener { querySnapshot, _ ->
+            if(!querySnapshot?.isEmpty!!){
+                binding.accountLayout.removeView(binding.txtMessageAddAcc)
+                binding.accountLayout.removeView(binding.txtMessageNoAcc)
             }
-            .addOnFailureListener{ exception -> Log.w("getAccount", "Error getting documents", exception) }
+        }
+
     }
 
-    private fun dataChanged(userID: String){
-        db.collection("accounts").whereEqualTo("userID",userID)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents){
-                    val name = document.getString("nameAccount").toString()
-                    vm.list.forEach{ item ->
-                        if( item.name == name){
-                            item.balance = "$${document.getString("balanceAccount").toString()}"
-                            viewAdapter.notifyDataSetChanged()
-                        }
-                    }
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+        viewAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewAdapter.stopListening()
     }
 }
