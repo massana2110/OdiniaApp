@@ -12,8 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentPaymentsBinding
 import com.womannotfound.odinia.viewmodel.PaymentsViewModel
@@ -25,8 +28,10 @@ class PaymentsFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var viewModel: PaymentsViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: PaymentAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private lateinit var paymentsRef: CollectionReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,36 +63,13 @@ class PaymentsFragment : Fragment() {
             binding.layoutPayment.removeView(binding.txtMsg)
             binding.layoutPayment.removeView(binding.addMsg)
 
-            val amount = "$${viewModel.amount}"
-            val itemB = PaymentsItems(
-                R.drawable.ic_ingresos,
-                viewModel.name,
-                viewModel.category,
-                amount,
-                viewModel.date
-            )
-            viewModel.list.add(itemB)
+            addPayment(userID, viewModel.name, viewModel.account, viewModel.category, viewModel.amount, viewModel.date, viewModel.inputDate)
 
-
-
-            addPayment(
-                userID,
-                viewModel.name,
-                viewModel.account,
-                viewModel.category,
-                viewModel.amount,
-                viewModel.date,
-                viewModel.inputDate
-            )
-
-        } else if (viewModel.list.isNotEmpty()) {
-                binding.layoutPayment.removeView(binding.logoView)
-                binding.layoutPayment.removeView(binding.txtPaymentSch)
-                binding.layoutPayment.removeView(binding.txtMsg)
-                binding.layoutPayment.removeView(binding.addMsg)
-        } else {
-            getPayments(userID, binding)
+            addActivity(userID, viewModel.name, viewModel.date, viewModel.amount,"#985E6D", viewModel.inputDate, viewModel.account)
         }
+
+        paymentsRef = db.collection("payments")
+
         viewModel.name = ""
         viewModel.account = ""
         viewModel.category = ""
@@ -95,27 +77,21 @@ class PaymentsFragment : Fragment() {
         viewModel.date = ""
         viewModel.inputDate = ""
 
-
-        viewManager = LinearLayoutManager(context)
-        viewAdapter = PaymentAdapter(viewModel.list)
-        recyclerView = binding.recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
-
+        setUpRecyclerView(binding,userID)
         return binding.root
     }
 
-    private fun addPayment(
-        userID: String,
-        namePayment: String,
-        accountName: String,
-        categoryPayment: String,
-        amountPayment: String,
-        datePayment: String,
-        inputDate: String
-    ) {
+    override fun onStart() {
+        super.onStart()
+        viewAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewAdapter.stopListening()
+    }
+
+    private fun addPayment(userID: String, namePayment: String, accountName: String, categoryPayment: String, amountPayment: String, datePayment: String, inputDate: String) {
         val user = hashMapOf(
             "userID" to userID,
             "namePayment" to namePayment,
@@ -127,46 +103,14 @@ class PaymentsFragment : Fragment() {
         )
         db.collection("payments")
             .add(user)
-            .addOnSuccessListener { Log.d("AddPayment", "DocumentSnapshot successfully written!") }
+            .addOnSuccessListener {
+                Log.d("AddPayment", "DocumentSnapshot successfully written!")
+                updateBalance(userID, accountName, amountPayment)
+            }
             .addOnFailureListener { Log.w("AddPayment", "Error writing document") }
-         updateBalance(userID, accountName, amountPayment)
+
 
     }
-
-    private fun getPayments(userID: String, binding: FragmentPaymentsBinding) {
-        db.collection("payments")
-            .whereEqualTo("userID", userID)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val name = document.getString("namePayment").toString()
-                    val category = document.getString("categoryPayment").toString()
-                    val amount = "$${document.getString("amountPayment").toString()}"
-                    val date = document.getString("datePayment").toString()
-
-
-                    val item = PaymentsItems(R.drawable.ic_ingresos, name, category, amount, date)
-
-                    viewModel.list.add(item)
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }
-                if (!documents.isEmpty) {
-                    binding.layoutPayment.removeView(binding.logoView)
-                    binding.layoutPayment.removeView(binding.txtPaymentSch)
-                    binding.layoutPayment.removeView(binding.txtMsg)
-                    binding.layoutPayment.removeView(binding.addMsg)
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(
-                    "getPayment",
-                    "Error getting documents",
-                    exception
-                )
-            }
-
-    }
-
 
     private fun updateBalance(userID: String, accountName: String, amount: String) {
         var i = 0
@@ -219,6 +163,45 @@ class PaymentsFragment : Fragment() {
 
             }
 
+
+    }
+
+    private fun addActivity(userID: String, activityName: String, activityDate: String, activityAmount: String, cardColor: String, inputDate: String, account: String){
+        val activity = hashMapOf(
+            "userID" to userID,
+            "activityName" to activityName,
+            "activityDate" to activityDate,
+            "activityAmount" to activityAmount,
+            "cardColor" to cardColor,
+            "createdAt" to inputDate,
+            "accountName" to account
+        )
+
+        db.collection("activities").add(activity)
+    }
+
+    private fun setUpRecyclerView(binding: FragmentPaymentsBinding, userID: String){
+
+        val paymentsQuery: Query = paymentsRef.whereEqualTo("userID",userID)
+
+        val options = FirestoreRecyclerOptions.Builder<PaymentsItems>().setQuery(paymentsQuery, PaymentsItems::class.java).build()
+
+        viewManager = LinearLayoutManager(context)
+        viewAdapter = PaymentAdapter(options)
+        recyclerView = binding.recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager= viewManager
+            adapter= viewAdapter
+        }
+
+        paymentsQuery.addSnapshotListener { querySnapshot, _ ->
+            if(!querySnapshot?.isEmpty!!){
+                binding.layoutPayment.removeView(binding.logoView)
+                binding.layoutPayment.removeView(binding.txtPaymentSch)
+                binding.layoutPayment.removeView(binding.txtMsg)
+                binding.layoutPayment.removeView(binding.addMsg)
+            }
+        }
 
     }
 }

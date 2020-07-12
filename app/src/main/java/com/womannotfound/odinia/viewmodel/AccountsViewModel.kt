@@ -7,5 +7,4 @@ class AccountsViewModel: ViewModel(){
     var name : String = ""
     var type : String = ""
     var balance : String = ""
-    val list = ArrayList<AccountsItems>()
 }
