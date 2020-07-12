@@ -11,5 +11,4 @@ class PaymentsViewModel : ViewModel(){
     var date: String = ""
     var inputDate: String= ""
     val list = ArrayList<PaymentsItems>()
-    var validate : Boolean = false
 }

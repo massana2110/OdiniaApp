@@ -61,6 +61,7 @@ class SettingsAccountsFragment : Fragment(), AdapterView.OnItemSelectedListener 
             var type = binding.spinnerAccounts2.selectedItem.toString()
             var balance = binding.inputAmountMoney.text.toString()
             var j = 0
+            var i = 0
 
             db.collection("accounts")
                 .whereEqualTo("userID", userID)
@@ -97,15 +98,18 @@ class SettingsAccountsFragment : Fragment(), AdapterView.OnItemSelectedListener 
                                         val expense = it.toObject(PaymentsViewModel::class.java)
                                         if (expense != null) {
                                             val indocument = it.id
-                                            db.collection("accounts")
-                                                .document(indocument)
-                                                .update("nameAccount", name)
-                                            db.collection("accounts")
-                                                .document(indocument)
-                                                .update("typeAccount", type)
-                                            db.collection("accounts")
-                                                .document(indocument)
-                                                .update("balanceAccount", balance)
+                                            if (i == 0) {
+                                                db.collection("accounts")
+                                                    .document(indocument)
+                                                    .update("nameAccount", name)
+                                                db.collection("accounts")
+                                                    .document(indocument)
+                                                    .update("typeAccount", type)
+                                                db.collection("accounts")
+                                                    .document(indocument)
+                                                    .update("balanceAccount", balance)
+                                                i = +1
+                                            }
                                         }
 
 
