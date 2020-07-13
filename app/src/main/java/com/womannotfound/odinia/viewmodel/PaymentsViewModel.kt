@@ -10,5 +10,4 @@ class PaymentsViewModel : ViewModel(){
     var amount: String = ""
     var date: String = ""
     var inputDate: String= ""
-    val list = ArrayList<PaymentsItems>()
 }
