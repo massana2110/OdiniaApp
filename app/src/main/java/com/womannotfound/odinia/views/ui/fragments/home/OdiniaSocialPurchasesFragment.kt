@@ -3,32 +3,27 @@ package com.womannotfound.odinia.views.ui.fragments.home
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.graphics.toColorInt
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentOdiniaSocialPurchasesBinding
 import com.womannotfound.odinia.viewmodel.SocialViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.SocialAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.SocialItems
-import kotlinx.android.synthetic.main.fragment_egress_money.*
-import kotlinx.android.synthetic.main.fragment_odinia_social_purchases.*
-import kotlinx.android.synthetic.main.social_items.view.*
+
 
 class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -36,7 +31,6 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
     private lateinit var auth: FirebaseAuth
     private lateinit var vm: SocialViewModel
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
@@ -59,6 +53,11 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
             R.layout.fragment_odinia_social_purchases, container, false
         )
         binding.shareButton.setOnClickListener {
+            val item = SocialItems(R.drawable.ic_gastos, vm.description, vm.date)
+
+            vm.color
+            vm.list.add(item)
+            viewAdapter.notifyDataSetChanged()
             it.findNavController().navigate(R.id.nav_odiniaSocial)
         }
 
@@ -67,10 +66,6 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
 
 
         populateSpinnerPurchases(spinnerPurchases as Spinner, userID)
-        //changeCardViewColor(selectedColor, binding)
-
-        val description: String? = spinnerPurchases.selectedItem?.toString()
-        vm.description = description
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -83,23 +78,53 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = SocialAdapter(vm.list)
-        recyclerView = binding.recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
 
-        getExpenses(userID,vm.description)
+        binding.spinnerPurchases.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
-        binding.spinnerPurchases.onItemSelectedListener = this
-        binding.spinnerCardColor.onItemSelectedListener = this
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val description = spinnerPurchases.selectedItem?.toString()
+                    getExpenses(userID, description)
+                    binding.textViewDescription.setText(description)
+                    binding.textViewDate.setText(vm.date)
+
+                    viewAdapter.notifyDataSetChanged()
+                }
+
+            }
+
+        binding.spinnerCardColor.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    vm.color = binding.spinnerCardColor.selectedItem.toString()
+                    changeCardViewColor(vm.color, binding)
+                    viewAdapter.notifyDataSetChanged()
+                }
+
+            }
 
         return binding.root
     }
 
 
-    override fun onNothingSelected(parent: AdapterView<*>?)
-    {
+    override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
 
@@ -135,38 +160,41 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
 
     private fun getExpenses(userID: String, descriptionEgress: String?) {
         db.collection("expenses")
-            .whereEqualTo("userId",userID)
+            .whereEqualTo("userId", userID)
             .whereEqualTo("descriptionEgress", descriptionEgress)
             .get()
             .addOnSuccessListener { documents ->
-                for (document in documents){
-                    val description = document.getString("descriptionEgress").toString()
-                    val date = document.getString("dateEgress").toString()
-                    val item = SocialItems(R.drawable.ic_gastos,description,date)
+                for (document in documents) {
+                    vm.description = document.getString("descriptionEgress").toString()
+                    vm.date = document.getString("dateEgress").toString()
 
-                    vm.list.add(item)
-                    recyclerView.adapter?.notifyDataSetChanged()
                 }
 
             }
-            .addOnFailureListener{ exception -> Log.w("getExpenses", "Error getting documents", exception) }
+            .addOnFailureListener { exception ->
+                Log.w(
+                    "getExpenses",
+                    "Error getting documents",
+                    exception
+                )
+            }
     }
 
 
-    /*private fun changeCardViewColor(
+    private fun changeCardViewColor(
         selectedColor: String?,
         binding: FragmentOdiniaSocialPurchasesBinding
     ) {
-        val socialCard: CardView = binding.recyclerView.cardView
+        val socialCard: CardView = binding.cardView
         when (selectedColor) {
-            "Azul" -> socialCard.setCardBackgroundColor(Color.BLUE)
-            "Gris Oscuro" -> socialCard.setCardBackgroundColor(Color.DKGRAY)
-            "Verde" -> socialCard.setCardBackgroundColor(Color.GREEN)
-            "Magenta" -> socialCard.setCardBackgroundColor(Color.MAGENTA)
-            "Cyan" -> socialCard.setCardBackgroundColor(Color.CYAN)
+            "Azul Oscuro" -> socialCard.setCardBackgroundColor(Color.parseColor("#252850"))
+            "Gris Oscuro" -> socialCard.setCardBackgroundColor(Color.parseColor("#828282"))
+            "Verde Oscuro" -> socialCard.setCardBackgroundColor(Color.parseColor("#2d572c"))
+            "Ocre" -> socialCard.setCardBackgroundColor(Color.parseColor("#b9935a"))
+            "Plateado" -> socialCard.setCardBackgroundColor(Color.parseColor("#8a9597"))
             else -> socialCard.setCardBackgroundColor(Color.parseColor("#393F56"))
 
         }
     }
-*/
+
 }
