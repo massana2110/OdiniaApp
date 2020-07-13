@@ -107,7 +107,7 @@ class SettingsProfileFragment : Fragment() {
             LoginManager.getInstance().logOut()
             val intent = Intent(requireContext(), AuthenticationActivity::class.java)
             startActivity(intent)
-            activity?.finish()
+            requireActivity().finish()
         }
 
         return binding.root

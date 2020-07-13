@@ -82,11 +82,11 @@ class AccountsFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(binding: FragmentAccountsBinding, userID: String){
-        val query : Query = accountRef.whereEqualTo("userID", userID)
-        val options = FirestoreRecyclerOptions.Builder<AccountsItems>().setQuery(query, AccountsItems::class.java).build()
+        val query : Query? = accountRef.whereEqualTo("userID", userID)
+        val options = query?.let { FirestoreRecyclerOptions.Builder<AccountsItems>().setQuery(it, AccountsItems::class.java).build() }
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = AccountAdapter(options)
+        viewAdapter = options?.let { AccountAdapter(it) }!!
         recyclerView = binding.recyclerViewAccounts.apply {
             setHasFixedSize(true)
             layoutManager= viewManager
@@ -94,9 +94,11 @@ class AccountsFragment : Fragment() {
         }
 
         query.addSnapshotListener { querySnapshot, _ ->
-            if(!querySnapshot?.isEmpty!!){
-                binding.accountLayout.removeView(binding.txtMessageAddAcc)
-                binding.accountLayout.removeView(binding.txtMessageNoAcc)
+            if (querySnapshot != null) {
+                if(!querySnapshot.isEmpty){
+                    binding.accountLayout.removeView(binding.txtMessageAddAcc)
+                    binding.accountLayout.removeView(binding.txtMessageNoAcc)
+                }
             }
         }
 
