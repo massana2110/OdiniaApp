@@ -54,7 +54,7 @@ class EgressMoneyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val spinnerAccounts: Spinner = binding.spinnerAccounts
         val spinnerCategories = binding.spinnerEgressCategories
 
-        val btnDatePicker: Button = binding.btnDatePicker
+        val btnDatePicker: Button = binding.chooseImage
         val textDate: TextView = binding.textDatePicked
 
         val calendar = Calendar.getInstance()

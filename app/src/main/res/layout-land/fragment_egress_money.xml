@@ -87,7 +87,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_datePicker"
+                    android:id="@+id/choose_image"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginStart="16dp"
@@ -119,7 +119,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_datePicker"
+                    app:layout_constraintStart_toEndOf="@+id/choose_image"
                     app:layout_constraintTop_toBottomOf="@+id/accountText" />
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:fontFamily="@font/quicksand_bold"
                     android:text="@string/category_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_datePicker" />
+                    app:layout_constraintTop_toBottomOf="@+id/choose_image" />
 
                 <Spinner
                     android:id="@+id/spinnerEgressCategories"

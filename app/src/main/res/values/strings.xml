@@ -106,7 +106,7 @@
     <string name="txt_rateUs_settings">Califícanos</string>
     <string name="txt_rateUs_settings_details">¡Ayudanos a crecer!</string>
     <string name="txt_version_settings">Versión</string>
-    <string name="txt_version_settings_details">0.3</string>
+    <string name="txt_version_settings_details">0.8</string>
     <string name="txt_extraSettings_settings">Otras configuraciones</string>
 
     <string name="fragment_profile_settings">Perfil</string>

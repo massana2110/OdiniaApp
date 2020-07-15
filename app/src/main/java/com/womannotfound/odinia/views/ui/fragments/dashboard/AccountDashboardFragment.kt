@@ -55,12 +55,15 @@ class AccountDashboardFragment : Fragment() {
 
     private fun setUpRecyclerView(binding: FragmentAccountDashboardBinding, userID: String){
 
-        val activityQuery: Query = activityRef.whereEqualTo("userID",userID)//.orderBy("createdAt", Query.Direction.ASCENDING)
+        val activityQuery: Query? = activityRef.whereEqualTo("userID",userID)//.orderBy("createdAt", Query.Direction.ASCENDING)
 
-        val options = FirestoreRecyclerOptions.Builder<ActivitiesItems>().setQuery(activityQuery, ActivitiesItems::class.java).build()
+        val options = activityQuery?.let {
+            FirestoreRecyclerOptions.Builder<ActivitiesItems>().setQuery(
+                it, ActivitiesItems::class.java).build()
+        }
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ActivityAdapter(options)
+        viewAdapter = options?.let { ActivityAdapter(it) }!!
         recyclerView = binding.recyclerViewActivities.apply {
             setHasFixedSize(true)
             layoutManager= viewManager
@@ -68,9 +71,11 @@ class AccountDashboardFragment : Fragment() {
         }
 
         activityQuery.addSnapshotListener { querySnapshot, _ ->
-            if(!querySnapshot?.isEmpty!!){
-                binding.activityLayout.removeView(binding.textViewHint)
-                binding.activityLayout.removeView(binding.textViewEmpty)
+            if (querySnapshot != null) {
+                if(!querySnapshot.isEmpty){
+                    binding.activityLayout.removeView(binding.textViewHint)
+                    binding.activityLayout.removeView(binding.textViewEmpty)
+                }
             }
         }
 

@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/n_margin"
                 android:layout_marginTop="@dimen/n_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/txt_name_payment"
                 android:textSize="18sp"

@@ -182,12 +182,15 @@ class PaymentsFragment : Fragment() {
 
     private fun setUpRecyclerView(binding: FragmentPaymentsBinding, userID: String){
 
-        val paymentsQuery: Query = paymentsRef.whereEqualTo("userID",userID)
+        val paymentsQuery: Query? = paymentsRef.whereEqualTo("userID",userID)
 
-        val options = FirestoreRecyclerOptions.Builder<PaymentsItems>().setQuery(paymentsQuery, PaymentsItems::class.java).build()
+        val options = paymentsQuery?.let {
+            FirestoreRecyclerOptions.Builder<PaymentsItems>().setQuery(
+                it, PaymentsItems::class.java).build()
+        }
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = PaymentAdapter(options)
+        viewAdapter = options?.let { PaymentAdapter(it) }!!
         recyclerView = binding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager= viewManager
@@ -195,11 +198,13 @@ class PaymentsFragment : Fragment() {
         }
 
         paymentsQuery.addSnapshotListener { querySnapshot, _ ->
-            if(!querySnapshot?.isEmpty!!){
-                binding.layoutPayment.removeView(binding.logoView)
-                binding.layoutPayment.removeView(binding.txtPaymentSch)
-                binding.layoutPayment.removeView(binding.txtMsg)
-                binding.layoutPayment.removeView(binding.addMsg)
+            if (querySnapshot != null) {
+                if(!querySnapshot.isEmpty){
+                    binding.layoutPayment.removeView(binding.logoView)
+                    binding.layoutPayment.removeView(binding.txtPaymentSch)
+                    binding.layoutPayment.removeView(binding.txtMsg)
+                    binding.layoutPayment.removeView(binding.addMsg)
+                }
             }
         }
 
