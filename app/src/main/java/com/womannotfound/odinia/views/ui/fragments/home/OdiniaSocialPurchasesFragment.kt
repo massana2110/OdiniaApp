@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,16 +17,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
+import com.womannotfound.odinia.databinding.FragmentOdiniaSocialBinding
 import com.womannotfound.odinia.databinding.FragmentOdiniaSocialPurchasesBinding
 import com.womannotfound.odinia.viewmodel.SocialViewModel
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.SocialAdapter
 import com.womannotfound.odinia.views.ui.fragments.controls.adapters.SocialItems
 
 
-class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedListener,
+    SocialAdapter.OnSocialItemClickListener {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
@@ -53,10 +57,7 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
             R.layout.fragment_odinia_social_purchases, container, false
         )
         binding.shareButton.setOnClickListener {
-            val item = SocialItems(R.drawable.ic_gastos, vm.description, vm.date)
-
-            vm.color
-            vm.list.add(item)
+            addPost(vm.userID, vm.username, vm.description, vm.date, vm.color, 0, 0)
             viewAdapter.notifyDataSetChanged()
             it.findNavController().navigate(R.id.nav_odiniaSocial)
         }
@@ -64,8 +65,10 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
         val userID: String = auth.currentUser!!.uid.toString()
         val spinnerPurchases = binding.spinnerPurchases
 
+        vm.userID = userID
 
         populateSpinnerPurchases(spinnerPurchases as Spinner, userID)
+        getUsername(userID)
 
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -77,7 +80,7 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
         }
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = SocialAdapter(vm.list)
+        viewAdapter = SocialAdapter(vm.list, this)
 
         binding.spinnerPurchases.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -196,5 +199,45 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
 
         }
     }
+
+    private fun getUsername(userID: String) {
+        db.collection("users").document(userID).get().addOnSuccessListener { document ->
+            if (document != null) {
+                vm.username = document["username"].toString()
+                vm.userImg = document["photoUrl"].toString()
+                Log.w("getUsername", "Getting document succesful")
+            } else {
+                Log.d("getUsername", "No such document")
+            }
+        }.addOnFailureListener { exception ->
+            Log.d("getUsername", "get failed with", exception)
+        }
+    }
+
+    private fun addPost(
+        userId: String,
+        username: String,
+        descriptionPost: String?,
+        datePost: String,
+        cardColor: String,
+        likeCounter: Int,
+        dislikeCounter: Int
+    ) {
+        val post = hashMapOf(
+            "userID" to userId,
+            "username" to username,
+            "descriptionPost" to descriptionPost,
+            "datePost" to datePost,
+            "cardColor" to cardColor,
+            "likeCounter" to likeCounter,
+            "dislikeCounter" to dislikeCounter
+        )
+        db.collection("posts").add(post)
+    }
+
+    override fun onItemClick(item: SocialItems, position: Int) {
+
+    }
+
 
 }
