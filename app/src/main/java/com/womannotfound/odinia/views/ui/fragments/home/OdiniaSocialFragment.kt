@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.womannotfound.odinia.R
 import com.womannotfound.odinia.databinding.FragmentOdiniaSocialBinding
@@ -65,10 +66,8 @@ class OdiniaSocialFragment : Fragment(), SocialAdapter.OnSocialItemClickListener
         vm.list.clear()
         getPosts()
         //changeCardViewColor(binding)
-        binding.textViewUsername.setText(vm.username)
-        binding.textView27.setText(vm.likeCounter)
-        binding.textView28.setText(vm.dislikeCounter)
-        Glide.with(this).load(vm.userImg).into(binding.imageViewUser)
+
+
 
 
         viewManager = LinearLayoutManager(this.context)
@@ -106,8 +105,9 @@ class OdiniaSocialFragment : Fragment(), SocialAdapter.OnSocialItemClickListener
                 vm.description = document["descriptionPost"].toString()
                 vm.date = document["datePost"].toString()
                 vm.color = document["cardColor"].toString()
-                vm.username = document["username"].toString()
-                val item: SocialItems = SocialItems(R.drawable.ic_gastos, vm.description, vm.date)
+                val username = document["username"].toString()
+                val userImage = document["userImage"].toString()
+                val item: SocialItems = SocialItems(R.drawable.ic_gastos, vm.description, vm.date,username,userImage)
 
                 vm.list.add(item)
                 viewAdapter.notifyDataSetChanged()
@@ -121,15 +121,9 @@ class OdiniaSocialFragment : Fragment(), SocialAdapter.OnSocialItemClickListener
         }
     }
 
+
     override fun onItemClick(item: SocialItems, position: Int) {
-        db.collection("posts").whereEqualTo("descriptionPost", item.category).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    vm.username = document["username"].toString()
-                    vm.likeCounter = document["likeCounter"].toString()
-                    vm.dislikeCounter = document["dislikeCounter"].toString()
-                }
-            }
+
     }
 }
 
