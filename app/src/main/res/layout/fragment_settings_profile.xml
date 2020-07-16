@@ -15,12 +15,11 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="@dimen/n_margin"
-            android:src="@mipmap/ic_launcher_round"
+            android:contentDescription="@string/txt_profile_pic"
             app:civ_border_color="@color/colorPrimaryDark"
             app:civ_border_width="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/txt_profile_pic"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -29,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/n_margin"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/quicksand_bold"
             android:text="@string/txt_profileUsername_settings"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/small_text_settings"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/choose_image" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_uploadImage" />
 
         <EditText
             android:id="@+id/editText"
@@ -55,10 +54,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-
-
-
-
         <TextView
             android:id="@+id/choose_image"
             android:layout_width="wrap_content"
@@ -66,7 +61,7 @@
             android:layout_marginTop="@dimen/fab_margin"
             android:fontFamily="@font/quicksand_bold"
             android:text="@string/txt_profile_username_settings"
-            android:textColor="@color/colorSubText"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/small_text_settings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +81,20 @@
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btn_uploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/buttons_style"
+            android:minWidth="120dp"
+            android:text="@string/upload_image_text"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_image" />
 
         <Button
             android:id="@+id/logOutButton"

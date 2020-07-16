@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -57,6 +58,16 @@ class SettingsProfileFragment : Fragment() {
 
         val userID = auth.currentUser?.uid.toString()
 
+        db.collection("users").document(userID).addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+            val imageUrl = documentSnapshot?.get("photoUrl").toString()
+            activity?.applicationContext?.let {
+                Glide.with(it)
+                    .load(imageUrl)
+                    .error(R.mipmap.ic_launcher_round)
+                    .into(binding.profileImage)
+            }
+        }
+
         binding.chooseImage.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) ==
@@ -77,10 +88,12 @@ class SettingsProfileFragment : Fragment() {
             }
         }
 
+        binding.btnUploadImage.setOnClickListener {
+            uploadImageToFirebase(userID)
+        }
 
         binding.btnAdd.setOnClickListener {
             val newUsername = binding.editText.text.toString()
-
 
             if (newUsername == "") {
                 Toast.makeText(context, "Proporcione datos validos", Toast.LENGTH_SHORT)
@@ -89,8 +102,10 @@ class SettingsProfileFragment : Fragment() {
                 db.collection("users")
                     .document(userID)
                     .update("username", newUsername)
+
                 it.findNavController()
                     .navigate(SettingsProfileFragmentDirections.actionNavSettingsProfileFragmentToNavSettings())
+
                 Toast.makeText(
                     context,
                     "Cuenta editada exitosamente",
@@ -127,15 +142,26 @@ class SettingsProfileFragment : Fragment() {
         private val PERMISSION_CODE = 1001
     }
 
-    private fun uploadImageToFirebase(){
+    private fun uploadImageToFirebase(userId: String){
         if (filePath != null){
             val ref = storageReference.child("user_profile_image/" + UUID.randomUUID().toString())
-            ref.putFile(filePath).addOnSuccessListener {taskSnapshot ->  
-                Toast.makeText(requireContext(), "Imagen subida exitosamente",Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener{
 
+            ref.putFile(filePath).addOnSuccessListener {taskSnapshot ->
+
+                ref.downloadUrl.addOnSuccessListener {
+                    val photoUrl = it.toString()
+                    db.collection("users")
+                        .document(userId)
+                        .update("photoUrl", photoUrl).addOnSuccessListener {
+                            Toast.makeText(requireContext(), "Imagen subida exitosamente",Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }.addOnFailureListener{
+                Toast.makeText(requireContext(), "Ocurrio un error en el proceso, vuelve a intentarlo",Toast.LENGTH_SHORT).show()
             }
 
+        } else {
+            return
         }
     }
 

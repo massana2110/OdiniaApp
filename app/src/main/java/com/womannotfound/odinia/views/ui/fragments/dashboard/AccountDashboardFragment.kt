@@ -39,12 +39,6 @@ class AccountDashboardFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        binding.textViewGraphs.setOnClickListener{
-            it.findNavController().navigate(R.id.action_nav_movements_to_dashboardGrapsFragment)
-        }
-        binding.imageViewToGraphArrow.setOnClickListener{
-            it.findNavController().navigate(R.id.action_nav_movements_to_dashboardGrapsFragment)
-        }
         val userID = auth.currentUser?.uid.toString()
 
         activityRef = db.collection("activities")

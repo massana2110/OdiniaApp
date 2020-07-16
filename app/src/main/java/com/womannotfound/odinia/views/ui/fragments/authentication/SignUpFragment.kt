@@ -84,7 +84,8 @@ class SignUpFragment : Fragment() {
                     val user = hashMapOf(
                         "username" to username,
                         "email" to email,
-                        "provider" to "email/password"
+                        "provider" to "email/password",
+                        "photoUrl" to ""
                     )
 
                     documentReference.set(user)
