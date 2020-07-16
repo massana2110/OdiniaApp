@@ -131,7 +131,7 @@
                 android:clipToPadding="false"
                 android:padding="4dp"
 
-                app:layout_constraintBottom_toTopOf="@+id/textViewGraphs"
+                app:layout_constraintBottom_toTopOf="@+id/viewGraphsContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewPayments"
@@ -140,35 +140,9 @@
             <View
                 android:id="@+id/viewGraphsContainer"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:background="@drawable/ic_container_blue"
                 app:layout_constraintBottom_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewGraphs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gobold_extra"
-                android:text="@string/txt_montly_graph"
-                android:textColor="@color/colorActivityEntries"
-                android:textSize="@dimen/big_text"
-                app:layout_constraintBottom_toBottomOf="@id/viewGraphsContainer"
-                app:layout_constraintEnd_toEndOf="@id/viewGraphsContainer"
-                app:layout_constraintStart_toStartOf="@id/viewGraphsContainer"
-                app:layout_constraintTop_toTopOf="@id/viewGraphsContainer" />
-
-            <ImageView
-                android:id="@+id/imageViewToGraphArrow"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginStart="5dp"
-                android:contentDescription="@string/image_btn_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/textViewGraphs"
-                app:layout_constraintEnd_toEndOf="@id/viewGraphsContainer"
-                app:layout_constraintStart_toEndOf="@id/textViewGraphs"
-
-
-                app:srcCompat="@drawable/ic_arrowright" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

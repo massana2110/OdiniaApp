@@ -215,17 +215,14 @@
                 app:srcCompat="@drawable/ic_entry_arrow" />
 
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/chartConsumptionGraph"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="12dp"
-                app:layout_constraintBottom_toBottomOf="@id/viewGraphsContainer"
-                app:layout_constraintEnd_toEndOf="@id/viewGraphsContainer"
-                app:layout_constraintHorizontal_bias="0.666"
-                app:layout_constraintStart_toStartOf="@id/viewGraphsContainer"
-                app:layout_constraintTop_toTopOf="@id/viewGraphsContainer"
-                app:layout_constraintVertical_bias="0.405" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proximamente"
+                app:layout_constraintBottom_toBottomOf="@+id/viewGraphsContainer"
+                app:layout_constraintEnd_toEndOf="@+id/viewGraphsContainer"
+                app:layout_constraintStart_toStartOf="@+id/viewGraphsContainer"
+                app:layout_constraintTop_toTopOf="@+id/viewGraphsContainer" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
