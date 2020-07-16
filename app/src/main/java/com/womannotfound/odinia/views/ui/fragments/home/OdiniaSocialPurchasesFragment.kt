@@ -57,7 +57,7 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
             R.layout.fragment_odinia_social_purchases, container, false
         )
         binding.shareButton.setOnClickListener {
-            addPost(vm.userID, vm.username, vm.description, vm.date, vm.color, 0, 0)
+            addPost(vm.userID, vm.username, vm.description, vm.date, vm.color,vm.userImg)
             viewAdapter.notifyDataSetChanged()
             it.findNavController().navigate(R.id.nav_odiniaSocial)
         }
@@ -220,8 +220,8 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
         descriptionPost: String?,
         datePost: String,
         cardColor: String,
-        likeCounter: Int,
-        dislikeCounter: Int
+        userImage: String
+
     ) {
         val post = hashMapOf(
             "userID" to userId,
@@ -229,8 +229,8 @@ class OdiniaSocialPurchasesFragment : Fragment(), AdapterView.OnItemSelectedList
             "descriptionPost" to descriptionPost,
             "datePost" to datePost,
             "cardColor" to cardColor,
-            "likeCounter" to likeCounter,
-            "dislikeCounter" to dislikeCounter
+            "userImage" to userImage
+
         )
         db.collection("posts").add(post)
     }

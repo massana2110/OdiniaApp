@@ -11,7 +11,5 @@ class SocialViewModel: ViewModel() {
     var date: String = ""
     var color: String = ""
     var userImg: String = ""
-    var likeCounter: String = ""
-    var dislikeCounter: String = ""
     val list = ArrayList<SocialItems>()
 }
