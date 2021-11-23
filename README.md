@@ -1,9 +1,8 @@
 # Odinia Application for Android
-***
-## ¡Bienvenidos a Odinia!
-***
 
-### Hitoria
+## ¡Bienvenidos a Odinia!
+
+### Historia
 Odinia partio de un proyecto de la materia de Programación de Dispositivos Moviles de la Universidad
 "José Simeón Cañas" de El Salvador. Odinia nace de la idea de crear una app de control
 de finanzas la cual se encargaría de que el usuario tenga control total del flujo de dinero pero
