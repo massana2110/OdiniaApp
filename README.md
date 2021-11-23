@@ -1,27 +1,20 @@
-# OdiniaApp
-Odinia Application for Android 
+# Odinia Application for Android
+***
+## ¡Bienvenidos a Odinia!
+***
 
-## Implementación del aplicativo en un entorno de desarrollo.
+### Hitoria
+Odinia partio de un proyecto de la materia de Programación de Dispositivos Moviles de la Universidad
+"José Simeón Cañas" de El Salvador. Odinia nace de la idea de crear una app de control
+de finanzas la cual se encargaría de que el usuario tenga control total del flujo de dinero pero
+¿como? Pues mediante registro de actividades del día, ver tu balance, graficas de movimientos y una
+nueva feature pensada como red social: Compartir en que mueves tu dinero con la comunidad y recibir
+de ellos feedback por si inviertes bien tu dinero o no.
 
-En primer lugar, para el desarrollo del mismo se utilizo Android Studio en su versión 3.6, por lo que se recomienda
-utilizar dicha versión para no tener problemas de compatibilidad. El siguiente paso es la clonacion de este repositorio,
-ya se encuentran aqui todos los recursos graficos necesarios por lo que no se necesita descargar nada mas.
+### ¿Que estamos haciendo ahora?
+Odinia se está renovando, traerá un diseño mejorado, intuitivo y llamativo con la finalidad de que
+te enfoques en lo que realmente te interesa: <b>El control de tus finanzas </b>.
 
-Para el sistema backend se opto por utilizar el servicio de Firebase por parte de Google ya que cumple con los alcances
-y objetivos del proyecto. Para tener acceso a la consola de Firebase se debe enviar un correo a la direccion: 
-david.massana.10@gmail.com para asi proceder a agregar su usuario al proyecto. Como maximo se puede tener hasta 6 cuentas.
+Además, sabemos que hubieron muchas features en la v1 que no funcionarón como debían, es por ello que
+en esta v2 se arreglarán y mejoraran.
 
-Pero si solo se desea testear el aplicativo aqui listamos usuarios de prueba (username - email):
-
-- User Test Facebook: user_fawncre_facebook@tfbnw.net 
-- Test User: test@gmail.com
-
-## Estructura del Proyecto
-
-Aqui se detallan todos los archivos (Clases .kt, archivos xml, carpetas) utilizados.
-
-Se ha agrupado por paquetes: viewmodel y views/ui. Dentro de viewmodel se encuentran todos los viewmodel implementados
-y en la carpeta views/ui todo lo visual dividido en activities y fragments. Se busco seguir el patrón de arquitectura mvvm.
-
-Para los recursos como drawables, layouts, mipmap, cada uno esta en sus carpetas respectivas por lo que si se desea modificar
-uno de estos archivos o agregar uno asegurarse de guardarlo en su lugar correspondiente para mantener la estructura.
